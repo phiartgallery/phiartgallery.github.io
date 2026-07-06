@@ -1,0 +1,41 @@
+---
+layout: base.njk
+---
+<article class="section">
+  <div class="wrap">
+    <div class="detail {% if flyer %}detail--media{% endif %}">
+      {%- if flyer %}
+      <div>
+        <figure class="detail__flyer">
+          <img src="{{ flyer }}" alt="{{ flyerAlt or (title + ' — event flyer') }}" sizes="(min-width: 56rem) 46vw, 92vw" eleventy:widths="500,900,1200" loading="eager" fetchpriority="high">
+        </figure>
+      </div>
+      {%- endif %}
+
+      <div class="stack">
+        <span class="tag tag--{{ type }}">{{ labels.eventTypes[type] }}</span>
+        <h1 class="detail__title">{{ title }}</h1>
+
+        <div class="detail__meta">
+          <span><strong>{{ start | readableDate }}</strong></span>
+          <span>{{ start | readableTime }}{% if end %}&nbsp;–&nbsp;{{ end | readableTime }}{% endif %}</span>
+          {% if free %}<span class="badge-free">Free admission</span>{% elif price %}<span>{{ price }}</span>{% endif %}
+        </div>
+
+        {% if performers %}<p class="lede">{{ performers | join(" · ") }}</p>{% endif %}
+
+        {% if content %}<div class="prose">{{ content | safe }}</div>{% endif %}
+
+        {% if ticketUrl %}
+        <div class="cluster" style="margin-top: var(--sp-3);">
+          <a class="btn btn--primary" href="{{ ticketUrl }}" rel="noopener" data-analytics="ticket">Tickets &amp; RSVP</a>
+        </div>
+        {% endif %}
+
+        {% include "partials/location-panel.njk" %}
+      </div>
+    </div>
+
+    <p style="margin-top: var(--sp-5);"><a href="/events/">← Back to all events</a></p>
+  </div>
+</article>

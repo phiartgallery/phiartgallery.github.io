@@ -1,0 +1,26 @@
+---
+permalink: /events/feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.name }} — Events</title>
+    <link>{{ site.url }}/events/</link>
+    <atom:link href="{{ site.url }}/events/feed.xml" rel="self" type="application/rss+xml" />
+    <description>{{ settings.tagline | e }}</description>
+    <language>en-us</language>
+    {%- if collections.eventsFeed.length %}
+    <lastBuildDate>{{ collections.eventsFeed[0].data.start | rssDate }}</lastBuildDate>
+    {%- endif %}
+    {%- for item in collections.eventsFeed %}
+    <item>
+      <title>{{ item.data.title | e }}</title>
+      <link>{{ item.url | absoluteUrl(site.url) }}</link>
+      <guid isPermaLink="true">{{ item.url | absoluteUrl(site.url) }}</guid>
+      <pubDate>{{ item.data.start | rssDate }}</pubDate>
+      {%- if item.data.summary %}<description>{{ item.data.summary | e }}</description>{% endif %}
+    </item>
+    {%- endfor %}
+  </channel>
+</rss>

@@ -1,0 +1,54 @@
+name: Build & deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Sveltia commits from the CMS land on `main` and trigger this automatically.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish; queue the newest without cancelling in-flight.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build site
+        run: npm run build
+        env:
+          # Production URL — must match src/CNAME and the domain in DNS.
+          SITE_URL: https://phigallery.xyz
+          # Add these as repository Secrets/Variables to enable them:
+          GA4_ID: ${{ vars.GA4_ID }}
+          FORMSPREE_ID: ${{ vars.FORMSPREE_ID }}
+          BUTTONDOWN_USER: ${{ vars.BUTTONDOWN_USER }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,293 @@
+# =============================================================================
+# Phi Gallery — Sveltia CMS configuration (Decap-compatible)
+#
+# BEFORE GOING LIVE, set the two values marked TODO:
+#   1. backend.repo      → your "owner/repo" on GitHub (e.g. phigallery/phigallery)
+#   2. backend.base_url  → the URL of your deployed sveltia-cms-auth Cloudflare
+#                          Worker, e.g. https://phi-cms-auth.<subdomain>.workers.dev
+# Editors then visit /admin and click "Sign in with GitHub".
+# =============================================================================
+
+backend:
+  name: github
+  repo: phigallery/phigallery # TODO: owner/repo
+  branch: main
+  base_url: https://YOUR-WORKER.workers.dev # TODO: sveltia-cms-auth Worker URL
+  commit_messages:
+    create: "content: create {{collection}} “{{slug}}” (via CMS)"
+    update: "content: update {{collection}} “{{slug}}” (via CMS)"
+    delete: "content: delete {{collection}} “{{slug}}” (via CMS)"
+    uploadMedia: "content: upload {{path}} (via CMS)"
+    deleteMedia: "content: delete {{path}} (via CMS)"
+
+site_url: https://phigallery.xyz
+display_url: https://phigallery.xyz
+logo_url: /assets/img/logo.svg
+
+# Uploads land here and are referenced by the /assets/uploads/... public path.
+media_folder: "src/assets/uploads"
+public_folder: "/assets/uploads"
+
+# Sveltia optimizes uploads automatically — resize huge phone photos and convert
+# to WebP so gallery pages stay fast even when artists upload straight from a DSLR.
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2400
+          height: 2400
+
+collections:
+  # ---- EVENTS -------------------------------------------------------------
+  - name: events
+    label: Events & Music
+    label_singular: Event
+    description: Live music, openings, workshops, sound healing, markets.
+    folder: "src/events"
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    sortable_fields: [start, title]
+    summary: "{{fields.start | date('yyyy-LL-dd')}} · {{title}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      # Stored as local wall-clock with no timezone offset so Eleventy reads it
+      # back as the gallery's local time. Do not add a Z/offset to the format.
+      - { name: start, label: Starts, widget: datetime, format: "YYYY-MM-DDTHH:mm:ss", picker_utc: false }
+      - { name: end, label: Ends, widget: datetime, required: false, format: "YYYY-MM-DDTHH:mm:ss", picker_utc: false }
+      - name: type
+        label: Type
+        widget: select
+        default: music
+        options:
+          - { label: Live Music, value: music }
+          - { label: Exhibit Opening, value: exhibit-opening }
+          - { label: Workshop, value: workshop }
+          - { label: Sound Healing, value: sound-healing }
+          - { label: Market, value: market }
+          - { label: Other, value: other }
+      - { name: flyer, label: Flyer / poster, widget: image, required: false }
+      - name: flyerAlt
+        label: Flyer alt text
+        widget: string
+        required: false
+        hint: "Describe the flyer for screen readers & SEO, e.g. “Poster for The Foo Band, July 18”."
+      - name: summary
+        label: Short summary
+        widget: text
+        required: false
+        hint: "One or two sentences. Used for previews, search snippets, and the events feed."
+      - { name: performers, label: Performers / artists, widget: list, required: false, hint: "One per line." }
+      - { name: free, label: Free admission?, widget: boolean, default: false, required: false }
+      - { name: price, label: Price (if not free), widget: string, required: false, hint: "e.g. “$10” or “$5–$15 sliding scale”." }
+      - { name: ticketUrl, label: Ticket / RSVP link, widget: string, required: false }
+      - { name: body, label: Details, widget: markdown, required: false }
+
+  # ---- EXHIBITS -----------------------------------------------------------
+  - name: exhibits
+    label: Exhibits
+    label_singular: Exhibit
+    folder: "src/exhibits"
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    sortable_fields: [openDate, title]
+    summary: "{{title}} ({{fields.openDate | date('LLL yyyy')}})"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: openDate, label: Opens, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+      - { name: closeDate, label: Closes, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+      - { name: artists, label: Artist(s), widget: list, required: false, hint: "Names, one per line." }
+      - { name: cover, label: Cover image, widget: image, required: false }
+      - { name: coverAlt, label: Cover alt text, widget: string, required: false, hint: "Describe the image for screen readers & SEO." }
+      - { name: summary, label: Short summary, widget: text, required: false }
+      - { name: body, label: Statement, widget: markdown, required: false }
+      - name: gallery
+        label: Image gallery
+        widget: list
+        required: false
+        summary: "{{fields.alt}}"
+        fields:
+          - { name: image, label: Image, widget: image }
+          - { name: alt, label: Alt text, widget: string, hint: "Required — describe the artwork." }
+          - { name: caption, label: Caption, widget: string, required: false }
+
+  # ---- ARTISTS ------------------------------------------------------------
+  - name: artists
+    label: Artists & Collective
+    label_singular: Artist
+    folder: "src/artists"
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    sortable_fields: [order, title]
+    summary: "{{title}} — {{fields.role}}"
+    fields:
+      - { name: title, label: Name, widget: string }
+      - name: role
+        label: Role
+        widget: select
+        default: exhibitor
+        options:
+          - { label: Coordinator, value: coordinator }
+          - { label: Exhibiting Artist, value: exhibitor }
+          - { label: Musician, value: musician }
+          - { label: Other, value: other }
+      - { name: order, label: Sort order, widget: number, required: false, value_type: int, default: 50, hint: "Lower shows first within a role." }
+      - { name: photo, label: Photo, widget: image, required: false }
+      - { name: photoAlt, label: Photo alt text, widget: string, required: false }
+      - { name: summary, label: Short bio / tagline, widget: text, required: false }
+      - { name: website, label: Website, widget: string, required: false }
+      - { name: instagram, label: Instagram handle, widget: string, required: false, hint: "Without the @." }
+      - { name: body, label: Full bio, widget: markdown, required: false }
+      - name: work
+        label: Selected work
+        widget: list
+        required: false
+        summary: "{{fields.alt}}"
+        fields:
+          - { name: image, label: Image, widget: image }
+          - { name: alt, label: Alt text, widget: string }
+          - { name: caption, label: Caption, widget: string, required: false }
+
+  # ---- PARTNERS -----------------------------------------------------------
+  - name: partners
+    label: Residents & Vendors
+    label_singular: Partner
+    folder: "src/partners"
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    sortable_fields: [order, title]
+    summary: "{{title}} — {{fields.category}}"
+    fields:
+      - { name: title, label: Name, widget: string }
+      - name: category
+        label: Category
+        widget: select
+        default: resident
+        options:
+          - { label: Resident, value: resident }
+          - { label: Vendor / maker, value: vendor }
+      - { name: order, label: Sort order, widget: number, required: false, value_type: int, default: 50 }
+      - { name: logo, label: Logo, widget: image, required: false }
+      - { name: blurb, label: Blurb, widget: text, required: false }
+      - { name: url, label: Website / Instagram URL, widget: string, required: false }
+      - { name: body, label: (unused), widget: markdown, required: false }
+
+  # ---- PRESS MENTIONS -----------------------------------------------------
+  - name: press
+    label: Press Mentions
+    label_singular: Press mention
+    folder: "src/press-mentions"
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    sortable_fields: [date, title]
+    summary: "{{fields.date | date('yyyy-LL-dd')}} · {{title}}"
+    fields:
+      - { name: title, label: Headline, widget: string }
+      - { name: outlet, label: Outlet, widget: string }
+      - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+      - { name: url, label: Link, widget: string, required: false }
+      - { name: summary, label: Note / pull quote, widget: text, required: false }
+      - { name: body, label: (unused), widget: markdown, required: false }
+
+  # ---- SINGLETONS ---------------------------------------------------------
+  - name: site
+    label: Site Settings
+    delete: false
+    editor: { preview: false }
+    files:
+      - name: settings
+        label: Gallery info, hours & hero
+        file: "src/_data/settings.json"
+        description: Name, address, hours, contact, announcement banner, homepage hero.
+        fields:
+          - { name: name, label: Gallery name, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: founded, label: Founded (year), widget: string }
+          - name: address
+            label: Address
+            widget: object
+            fields:
+              - { name: street, label: Street, widget: string }
+              - { name: city, label: City, widget: string }
+              - { name: region, label: State (abbr.), widget: string }
+              - { name: regionName, label: State (full), widget: string }
+              - { name: postalCode, label: ZIP, widget: string }
+              - { name: country, label: Country code, widget: string, default: US }
+          - name: geo
+            label: Map coordinates
+            widget: object
+            hint: "Latitude & longitude for the map and search results."
+            fields:
+              - { name: lat, label: Latitude, widget: number, value_type: float }
+              - { name: lng, label: Longitude, widget: number, value_type: float }
+          - { name: phone, label: Phone, widget: string, required: false }
+          - { name: email, label: General email, widget: string }
+          - { name: bookingEmail, label: Booking email, widget: string, required: false }
+          - { name: pressEmail, label: Press email, widget: string, required: false }
+          - { name: instagram, label: Instagram handle, widget: string, required: false, hint: "Without the @." }
+          - { name: googleBusinessUrl, label: Google Business Profile URL, widget: string, required: false }
+          - { name: pressKitUrl, label: Press kit ZIP URL, widget: string, required: false }
+          - name: hours
+            label: Hours
+            widget: list
+            fields:
+              - name: day
+                label: Day
+                widget: select
+                options: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
+              - { name: closed, label: Closed all day?, widget: boolean, default: false, required: false }
+              - { name: open, label: Opens, widget: string, required: false, hint: "24h, e.g. 11:00" }
+              - { name: close, label: Closes, widget: string, required: false, hint: "24h, e.g. 20:00" }
+          - { name: hoursNote, label: Hours note, widget: string, required: false }
+          - name: announcement
+            label: Announcement banner
+            widget: object
+            fields:
+              - { name: show, label: Show banner?, widget: boolean, default: false }
+              - { name: text, label: Banner text, widget: string, required: false }
+              - { name: url, label: Banner link, widget: string, required: false }
+          - name: hero
+            label: Homepage hero
+            widget: object
+            fields:
+              - { name: image, label: Hero image, widget: image, required: false }
+              - { name: alt, label: Hero image alt text, widget: string, required: false }
+              - { name: kicker, label: Kicker (small label), widget: string, required: false }
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: text, required: false }
+
+      - name: visit
+        label: Visit page text
+        file: "src/_data/visit.json"
+        fields:
+          - { name: lede, label: Intro, widget: text }
+          - { name: parking, label: Parking, widget: text }
+          - { name: accessibility, label: Accessibility & contact, widget: text }
+
+      - name: about
+        label: About page
+        file: "src/about.md"
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - { name: lede, label: Lede, widget: text }
+          - { name: description, label: SEO description, widget: text }
+          - { name: body, label: Body, widget: markdown }
+          # Preserved on save — do not remove (keeps Eleventy front matter intact):
+          - { name: layout, label: layout, widget: hidden, default: page.njk }
+          - { name: navKey, label: navKey, widget: hidden, default: about }
+          - { name: title, label: title, widget: hidden, default: About }
+          - { name: metaTitle, label: metaTitle, widget: hidden, default: "About Phi Gallery — Watertown's DIY Art Space" }
+          - { name: kicker, label: kicker, widget: hidden, default: "Our story" }
+          - name: breadcrumbs
+            label: breadcrumbs
+            widget: hidden
+            default:
+              - { label: Home, url: / }
+              - { label: About }

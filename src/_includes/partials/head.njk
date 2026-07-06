@@ -1,0 +1,60 @@
+{%- set pageTitle = metaTitle if metaTitle else (title + " — " + site.name if title else site.name) -%}
+{%- set metaDesc = (description if description else settings.tagline) | excerpt(180) -%}
+{%- set canonical = page.url | absoluteUrl(site.url) -%}
+{%- set ogImage = (shareImage if shareImage else site.defaultShareImage) | absoluteUrl(site.url) -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{{ pageTitle }}</title>
+<meta name="description" content="{{ metaDesc }}">
+<link rel="canonical" href="{{ canonical }}">
+{% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+<meta name="author" content="{{ site.name }}">
+<meta name="theme-color" content="#0b0b0d">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="mask-icon" href="/favicon.svg" color="#e8b84b">
+
+<meta property="og:type" content="{{ ogType if ogType else 'website' }}">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ ogTitle if ogTitle else pageTitle }}">
+<meta property="og:description" content="{{ metaDesc }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ ogImage }}">
+<meta property="og:locale" content="{{ site.locale }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ ogTitle if ogTitle else pageTitle }}">
+<meta name="twitter:description" content="{{ metaDesc }}">
+<meta name="twitter:image" content="{{ ogImage }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+
+<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Events" href="/events/feed.xml">
+
+<script type="application/ld+json">
+{{ schema.organization | jsonify | safe }}
+</script>
+{%- if jsonld %}
+<script type="application/ld+json">
+{{ jsonld | jsonify | safe }}
+</script>
+{%- endif %}
+{%- if breadcrumbsLd %}
+<script type="application/ld+json">
+{{ breadcrumbsLd | jsonify | safe }}
+</script>
+{%- endif %}
+
+{%- if site.ga4Id %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4Id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.ga4Id }}', { anonymize_ip: true });
+</script>
+{%- endif %}

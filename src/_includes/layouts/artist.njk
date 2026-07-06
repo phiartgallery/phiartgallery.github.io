@@ -1,0 +1,47 @@
+---
+layout: base.njk
+---
+<article class="section">
+  <div class="wrap">
+    <div class="detail {% if photo %}detail--media{% endif %}">
+      {%- if photo %}
+      <div>
+        <figure class="detail__flyer" style="aspect-ratio: 1/1;">
+          <img src="{{ photo }}" alt="{{ photoAlt or ('Portrait of ' + title) }}" sizes="(min-width: 56rem) 40vw, 92vw" eleventy:widths="500,800" loading="eager" fetchpriority="high">
+        </figure>
+      </div>
+      {%- endif %}
+
+      <div class="stack">
+        <span class="tag tag--role">{{ labels.roles[role] }}</span>
+        <h1 class="detail__title">{{ title }}</h1>
+        {% if summary %}<p class="lede">{{ summary }}</p>{% endif %}
+
+        {% if content %}<div class="prose">{{ content | safe }}</div>{% endif %}
+
+        {%- if website or instagram %}
+        <div class="cluster">
+          {% if website %}<a class="btn btn--sm btn--ghost" href="{{ website }}" rel="noopener">Website ↗</a>{% endif %}
+          {% if instagram %}<a class="btn btn--sm btn--ghost" href="https://www.instagram.com/{{ instagram | replace('@','') }}/" rel="noopener" data-analytics="instagram">@{{ instagram | replace('@','') }}</a>{% endif %}
+        </div>
+        {%- endif %}
+      </div>
+    </div>
+
+    {%- if work %}
+    <section style="margin-top: var(--sp-6);">
+      <div class="section-head"><h2>Selected work</h2></div>
+      <div class="gallery">
+        {%- for item in work %}
+        <figure>
+          <img src="{{ item.image }}" alt="{{ item.alt or (title + ' — artwork') }}" sizes="(min-width: 40rem) 220px, 45vw" eleventy:widths="300,600">
+          {% if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
+        </figure>
+        {%- endfor %}
+      </div>
+    </section>
+    {%- endif %}
+
+    <p style="margin-top: var(--sp-5);"><a href="/artists/">← Back to all artists</a></p>
+  </div>
+</article>

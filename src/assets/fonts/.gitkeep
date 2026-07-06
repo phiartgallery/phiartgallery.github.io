@@ -1,0 +1,2 @@
+# Optional: drop self-hosted webfonts (e.g. anton.woff2) here and reference them
+# with an @font-face rule in styles.css to remove the Google Fonts dependency.

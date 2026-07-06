@@ -1,0 +1,12 @@
+<table class="hours-table" id="hours-table">
+  <caption class="visually-hidden">Opening hours</caption>
+  <tbody>
+    {%- for h in settings.hours %}
+    <tr data-day="{{ h.day }}"{% if h.closed %} data-closed="true"{% else %} data-open="{{ h.open }}" data-close="{{ h.close }}"{% endif %}>
+      <td>{{ h.day }}</td>
+      <td>{% if h.closed %}<span class="closed">Closed</span>{% else %}{{ h.open | time12 }} – {{ h.close | time12 }}{% endif %}</td>
+    </tr>
+    {%- endfor %}
+  </tbody>
+</table>
+{%- if settings.hoursNote %}<p class="faint" style="font-size: var(--fs-xs); margin-top:.6rem;">{{ settings.hoursNote }}</p>{% endif %}

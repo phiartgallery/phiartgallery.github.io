@@ -1,0 +1,87 @@
+---
+layout: base.njk
+navKey: visit
+metaTitle: "Visit Phi Gallery — Downtown Watertown, NY | Hours & Directions"
+description: "Hours, directions, parking, and accessibility for Phi Gallery at 88 Public Square in downtown Watertown, NY. One of the best things to do in the North Country."
+breadcrumbs:
+  - label: Home
+    url: /
+  - label: Visit
+---
+{%- set destination = settings.address.street + ", " + settings.address.city + ", " + settings.address.region + " " + settings.address.postalCode -%}
+{%- set directionsUrl = "https://www.google.com/maps/dir/?api=1&destination=" + (destination | urlencode) -%}
+{%- set mapQuery = (settings.geo.lat + "," + settings.geo.lng + " (" + settings.name + ")") | urlencode -%}
+
+<section class="section wrap">
+  <header class="stack" style="margin-bottom: var(--sp-5);">
+    <p class="kicker">Downtown Watertown, NY</p>
+    <h1 class="display" style="font-size: var(--fs-3xl);">Visit</h1>
+    <p class="lede">{{ visit.lede }}</p>
+  </header>
+
+  <div class="info-grid">
+    <div class="stack">
+      <div class="panel">
+        <p class="eyebrow">Where</p>
+        <address class="nap" style="margin-top:.5rem;">
+          <strong>{{ settings.name }}</strong>
+          {{ settings.address.street }}<br>
+          {{ settings.address.city }}, {{ settings.address.region }} {{ settings.address.postalCode }}
+        </address>
+        <div class="cluster" style="margin-top: var(--sp-3);">
+          <a class="btn btn--sm btn--primary" href="{{ directionsUrl }}" rel="noopener" data-analytics="directions">Get directions</a>
+          {% if settings.phone %}<a class="btn btn--sm btn--ghost" href="tel:{{ settings.phone | replace(r/[^0-9+]/g, '') }}">Call {{ settings.phone }}</a>{% endif %}
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Hours</p>
+        <p id="open-status" class="faint" style="font-size: var(--fs-sm); margin:.3rem 0 .6rem;" hidden></p>
+        {% include "partials/hours.njk" %}
+      </div>
+    </div>
+
+    <div class="stack">
+      <iframe
+        class="map-embed"
+        title="Map to Phi Gallery, {{ destination }}"
+        src="https://maps.google.com/maps?q={{ mapQuery }}&z=16&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+      <div class="panel">
+        <p class="eyebrow">Parking</p>
+        <p class="muted">{{ visit.parking }}</p>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">Accessibility &amp; contact</p>
+        <p class="muted">{{ visit.accessibility }} Reach us at <a href="mailto:{{ settings.email }}">{{ settings.email }}</a>{% if site.instagramUrl %} or on <a href="{{ site.instagramUrl }}" rel="me noopener" data-analytics="instagram">Instagram</a>{% endif %}.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Highlight today's hours row + show an "open now / closed" status, using the
+  // visitor's local day/time. Progressive enhancement — the table works without it.
+  (function () {
+    var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    var now = new Date();
+    var today = days[now.getDay()];
+    var row = document.querySelector('#hours-table tr[data-day="' + today + '"]');
+    if (!row) return;
+    row.setAttribute("data-today", "true");
+    var status = document.getElementById("open-status");
+    if (!status) return;
+    var mins = now.getHours() * 60 + now.getMinutes();
+    var toMin = function (s) { var p = s.split(":"); return (+p[0]) * 60 + (+p[1]); };
+    var openNow = false;
+    if (row.getAttribute("data-open")) {
+      openNow = mins >= toMin(row.getAttribute("data-open")) && mins < toMin(row.getAttribute("data-close"));
+    }
+    status.hidden = false;
+    status.textContent = openNow ? "● Open now" : "● Closed right now";
+    status.style.color = openNow ? "var(--gold)" : "var(--paper-faint)";
+  })();
+</script>

@@ -1,0 +1,16 @@
+{#- Exhibit card. Expects `card` = an exhibit collection item. -#}
+<article class="card card--wide">
+  <div class="card__media">
+    <a href="{{ card.url }}" class="card__link" tabindex="-1" aria-hidden="true">
+      {%- if card.data.cover %}<img src="{{ card.data.cover }}" alt="{{ card.data.coverAlt or card.data.title }}" sizes="(min-width: 60rem) 340px, 90vw" eleventy:widths="400,800">{% endif %}
+    </a>
+  </div>
+  <div class="card__body">
+    <div class="card__meta">
+      <span class="tag tag--status-{{ card.data.computedStatus }}">{{ labels.exhibitStatus[card.data.computedStatus] }}</span>
+    </div>
+    <h3 class="card__title"><a href="{{ card.url }}">{{ card.data.title }}</a></h3>
+    {%- if card.data.artists %}<p class="card__excerpt">{{ card.data.artists | join(", ") }}</p>{% endif %}
+    <p class="card__footer faint">{{ card.data.openDate | readableDate("LLL d") }} – {{ card.data.closeDate | readableDate("LLL d, yyyy") }}</p>
+  </div>
+</article>

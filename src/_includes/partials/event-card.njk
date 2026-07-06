@@ -1,0 +1,26 @@
+{#- Event card. Expects `card` = an event collection item. -#}
+<article class="card">
+  <div class="card__media">
+    {%- if card.data.flyer %}
+    <a href="{{ card.url }}" class="card__link" tabindex="-1" aria-hidden="true">
+      <img src="{{ card.data.flyer }}" alt="{{ card.data.flyerAlt or (card.data.title + ' flyer') }}" sizes="(min-width: 60rem) 340px, 90vw" eleventy:widths="400,800">
+    </a>
+    {%- else %}
+    <a href="{{ card.url }}" class="card__link" tabindex="-1" aria-hidden="true"></a>
+    {%- endif %}
+  </div>
+  <div class="card__body">
+    <div class="card__meta">
+      <span class="tag tag--{{ card.data.type }}">{{ labels.eventTypes[card.data.type] }}</span>
+      {%- if card.data.price %}<span>{{ card.data.price }}</span>{% elif card.data.free %}<span class="badge-free">Free</span>{% endif %}
+    </div>
+    <p class="card__date">{{ card.data.start | readableDateTime }}</p>
+    <h3 class="card__title"><a href="{{ card.url }}">{{ card.data.title }}</a></h3>
+    {%- if card.data.performers %}<p class="card__excerpt">{{ card.data.performers | join(" · ") }}</p>{% endif %}
+    {%- if card.data.ticketUrl %}
+    <div class="card__footer">
+      <a class="btn btn--sm btn--primary" href="{{ card.data.ticketUrl }}" rel="noopener" data-analytics="ticket">Tickets</a>
+    </div>
+    {%- endif %}
+  </div>
+</article>

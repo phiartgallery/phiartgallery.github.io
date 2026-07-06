@@ -1,0 +1,42 @@
+---
+layout: base.njk
+navKey: partners
+title: Residents & Vendors
+metaTitle: "Residents & Vendors | Phi Gallery, Watertown NY"
+description: "The makers and organizations in residence at Phi Gallery — WildRoots Wellness and Revival, Holdown Upstate, Local Legendz by Tunes 92.5, Faeried Treasure Trove, and rotating local artisans."
+breadcrumbs:
+  - label: Home
+    url: /
+  - label: Partners
+---
+<section class="section wrap">
+  <header class="stack" style="margin-bottom: var(--sp-5);">
+    <p class="kicker">In the house</p>
+    <h1 class="display" style="font-size: var(--fs-3xl);">Residents &amp; Vendors</h1>
+    <p class="lede">Phi Gallery houses a collective of local makers and organizations — plus a rotating cast of North Country artisanal vendors.</p>
+  </header>
+
+  {%- if collections.partnersResidents.length %}
+  <div class="section-head"><h2>Residents</h2></div>
+  <div class="grid grid--3">
+    {%- for p in collections.partnersResidents %}{% set card = p %}{% include "partials/partner-item.njk" %}{% endfor %}
+  </div>
+  {%- endif %}
+
+  {%- if collections.partnersVendors.length %}
+  <div class="section-head" style="margin-top: var(--sp-6);"><h2>Vendors &amp; makers</h2></div>
+  <div class="grid grid--3">
+    {%- for p in collections.partnersVendors %}{% set card = p %}{% include "partials/partner-item.njk" %}{% endfor %}
+  </div>
+  {%- endif %}
+
+  {%- if not collections.partnersSorted.length %}
+  <p class="empty-state">Our resident and vendor directory is being assembled.</p>
+  {%- endif %}
+
+  <div class="panel text-center" style="margin-top: var(--sp-6);">
+    <h2 class="display" style="font-size: var(--fs-lg);">Want to vend or collaborate?</h2>
+    <p class="muted">We host rotating artisan markets and are always meeting new makers.</p>
+    <p><a class="btn btn--primary" href="/contact/">Get in touch</a></p>
+  </div>
+</section>

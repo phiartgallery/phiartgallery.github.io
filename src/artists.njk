@@ -1,0 +1,36 @@
+---
+layout: base.njk
+navKey: artists
+title: Artists & Collective
+metaTitle: "Artists & Collective | Phi Gallery, Watertown NY"
+description: "Meet the coordinators, exhibiting artists, and musicians of Phi Gallery — the artist-run collective behind Watertown's DIY art space."
+breadcrumbs:
+  - label: Home
+    url: /
+  - label: Artists
+---
+<section class="section wrap">
+  <header class="stack" style="margin-bottom: var(--sp-5);">
+    <p class="kicker">The people</p>
+    <h1 class="display" style="font-size: var(--fs-3xl);">Artists &amp; Collective</h1>
+    <p class="lede">Phi Gallery is artist-run. Meet the coordinators who keep the lights on and the artists showing work on our walls and stages.</p>
+  </header>
+
+  {%- if collections.artistsCoordinators.length %}
+  <div class="section-head"><h2>Coordinators</h2></div>
+  <div class="grid grid--artists">
+    {%- for a in collections.artistsCoordinators %}{% set card = a %}{% include "partials/artist-card.njk" %}{% endfor %}
+  </div>
+  {%- endif %}
+
+  {%- if collections.artistsOthers.length %}
+  <div class="section-head" style="margin-top: var(--sp-6);"><h2>Exhibiting artists &amp; musicians</h2></div>
+  <div class="grid grid--artists">
+    {%- for a in collections.artistsOthers %}{% set card = a %}{% include "partials/artist-card.njk" %}{% endfor %}
+  </div>
+  {%- endif %}
+
+  {%- if not collections.artistsSorted.length %}
+  <p class="empty-state">Artist profiles are on the way.</p>
+  {%- endif %}
+</section>

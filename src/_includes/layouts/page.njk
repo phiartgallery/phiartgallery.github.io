@@ -1,0 +1,15 @@
+---
+layout: base.njk
+---
+<article class="section">
+  <div class="wrap-narrow">
+    <header class="stack" style="margin-bottom: var(--sp-5);">
+      {% if kicker %}<p class="kicker">{{ kicker }}</p>{% endif %}
+      <h1 class="display" style="font-size: var(--fs-3xl);">{{ heading or title }}</h1>
+      {% if lede %}<p class="lede">{{ lede }}</p>{% endif %}
+    </header>
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+  </div>
+</article>

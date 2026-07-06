@@ -1,0 +1,101 @@
+---
+layout: base.njk
+metaTitle: "Phi Gallery — Art Gallery & Live Music on Public Square | Watertown, NY"
+description: "Phi Gallery is a DIY community art space and live music venue at 88 Public Square in downtown Watertown, NY — exhibits, live shows, workshops, sound healing, and a collective of North Country makers."
+---
+{%- set current = collections.exhibitsCurrent[0] -%}
+
+<section class="hero">
+  <div class="hero__media">
+    <img src="{{ settings.hero.image }}" alt="{{ settings.hero.alt }}" sizes="100vw" eleventy:widths="800,1200,1800,2400" loading="eager" fetchpriority="high">
+  </div>
+  <div class="wrap hero__inner">
+    <p class="kicker hero__kicker">{{ settings.hero.kicker }}</p>
+    <h1>{{ settings.hero.heading }}</h1>
+    <p class="hero__sub">{{ settings.hero.subheading }}</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="/events/">See what's on</a>
+      <a class="btn btn--ghost" href="/visit/">Plan your visit</a>
+    </div>
+  </div>
+</section>
+
+{# ---- Word strip — static gig-poster divider, hidden from assistive tech ---- #}
+{%- set tickerItems = ["Art", "Live Music", "Workshops", "Sound Healing", "Makers Market", "Zines", "Community"] -%}
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>{% for i in range(0, 3) %}{% for item in tickerItems %}{{ item }}<b>✶</b>{% endfor %}{% endfor %}</span>
+  </div>
+</div>
+
+{# ---- Upcoming events ---- #}
+<section class="section wrap">
+  <div class="section-head">
+    <h2>What's on</h2>
+    <a class="link-more" href="/events/">All events →</a>
+  </div>
+  {%- if collections.upcomingEvents.length %}
+  <div class="grid grid--3">
+    {%- for event in collections.upcomingEvents | take(3) %}
+      {%- set card = event %}
+      {% include "partials/event-card.njk" %}
+    {%- endfor %}
+  </div>
+  {%- else %}
+  <p class="empty-state">No upcoming events posted right now — follow along on <a href="{{ site.instagramUrl }}">Instagram</a> for the latest.</p>
+  {%- endif %}
+</section>
+
+{# ---- Current exhibit ---- #}
+{%- if current %}
+<section class="section--tight wrap">
+  <div class="panel" style="display:grid; gap:var(--sp-4); grid-template-columns: 1fr;">
+    <div class="detail {% if current.data.cover %}detail--media{% endif %}" style="align-items:center;">
+      {%- if current.data.cover %}
+      <figure style="margin:0; border-radius:var(--radius); overflow:hidden;">
+        <img src="{{ current.data.cover }}" alt="{{ current.data.coverAlt or current.data.title }}" sizes="(min-width: 56rem) 46vw, 92vw" eleventy:widths="500,900">
+      </figure>
+      {%- endif %}
+      <div class="stack">
+        <span class="tag tag--status-current">Now showing</span>
+        <h2 class="display" style="font-size: var(--fs-2xl);">{{ current.data.title }}</h2>
+        {% if current.data.artists %}<p class="muted">{{ current.data.artists | join(", ") }}</p>{% endif %}
+        {% if current.data.summary %}<p>{{ current.data.summary }}</p>{% endif %}
+        <p class="faint">{{ current.data.openDate | readableDate("LLL d") }} – {{ current.data.closeDate | readableDate("LLL d, yyyy") }}</p>
+        <p><a class="btn btn--ghost btn--sm" href="{{ current.url }}">View the exhibit</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+{# ---- Programs / what happens here ---- #}
+<section class="section wrap">
+  <div class="section-head"><h2>Built by artists, for artists</h2></div>
+  <div class="grid grid--3">
+    <div class="panel"><p class="kicker">Exhibits</p><p class="muted">Rotating visual-art shows from North Country artists — openings, artist talks, and installs on Public Square.</p></div>
+    <div class="panel"><p class="kicker">Live music</p><p class="muted">An intimate DIY venue for touring and local acts. Loud nights, listening rooms, and everything between.</p></div>
+    <div class="panel"><p class="kicker">Workshops</p><p class="muted">Literary arts, hands-on making, and skill-shares led by working artists in the community.</p></div>
+    <div class="panel"><p class="kicker">Sound healing</p><p class="muted">Restorative sound sessions and wellness gatherings with our resident practitioners.</p></div>
+    <div class="panel"><p class="kicker">Vendor collective</p><p class="muted">A rotating market of local artisans and makers — see who's in the house on <a href="/partners/">Partners</a>.</p></div>
+    <div class="panel"><p class="kicker">Community</p><p class="muted">A no-gatekeepers space where downtown Watertown's creative community gathers, shows work, and plays shows.</p></div>
+  </div>
+</section>
+
+{# ---- Newsletter / follow ---- #}
+<section class="section--tight wrap">
+  <div class="panel text-center stack">
+    <h2 class="display" style="font-size: var(--fs-xl);">Don't miss a show</h2>
+    {%- if site.buttondownUser %}
+    <p class="muted">Get the occasional email when new shows and exhibits go up.</p>
+    <form action="https://buttondown.email/api/emails/embed-subscribe/{{ site.buttondownUser }}" method="post" target="popupwindow" class="cluster" style="justify-content:center;">
+      <label class="visually-hidden" for="bd-email">Email address</label>
+      <input id="bd-email" type="email" name="email" placeholder="you@email.com" required style="min-width:16rem; background:var(--ink-3); border:1px solid var(--line); color:var(--paper); border-radius:var(--radius); padding:.7rem .85rem;">
+      <button class="btn btn--primary" type="submit">Subscribe</button>
+    </form>
+    {%- else %}
+    <p class="muted">Follow us on Instagram for openings, show announcements, and last-minute adds.</p>
+    <p><a class="btn btn--primary" href="{{ site.instagramUrl }}" rel="me noopener" data-analytics="instagram">Follow @{{ settings.instagram | replace('@','') }}</a></p>
+    {%- endif %}
+  </div>
+</section>

@@ -1,0 +1,36 @@
+{%- if settings.announcement.show %}
+<div class="banner" role="region" aria-label="Announcement">
+  {% if settings.announcement.url %}<a href="{{ settings.announcement.url }}">{{ settings.announcement.text }}</a>
+  {% else %}{{ settings.announcement.text }}{% endif %}
+</div>
+{%- endif %}
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="/" aria-label="{{ site.name }} — home">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18.5" stroke="currentColor" stroke-width="2.2"/>
+          <ellipse cx="20" cy="20" rx="7.4" ry="9.4" stroke="currentColor" stroke-width="2.4"/>
+          <line x1="20" y1="6.5" x2="20" y2="33.5" stroke="currentColor" stroke-width="2.4"/>
+        </svg>
+      </span>
+      <span>Phi Gallery</span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <span>Menu</span>
+    </button>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+      <ul>
+        {%- for item in nav.primary %}
+        <li><a href="{{ item.url }}"{% if item.key == navKey %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

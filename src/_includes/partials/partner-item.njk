@@ -1,0 +1,16 @@
+{#- Partner card. Expects `card` = a partner collection item. -#}
+<article class="card">
+  <div class="card__body" style="gap:.75rem;">
+    {%- if card.data.logo %}
+    <div style="height:4.5rem; display:flex; align-items:center;">
+      <img src="{{ card.data.logo }}" alt="{{ card.data.title }} logo" sizes="220px" eleventy:widths="200,400" style="height:100%; width:auto;">
+    </div>
+    {%- endif %}
+    <div class="card__meta"><span class="tag tag--role">{{ labels.partnerCategories[card.data.category] }}</span></div>
+    <h3 class="card__title" style="font-size: var(--fs-lg);">{{ card.data.title }}</h3>
+    {% if card.data.blurb %}<p class="card__excerpt">{{ card.data.blurb }}</p>{% endif %}
+    {%- if card.data.url %}
+    <p class="card__footer"><a class="btn btn--sm btn--ghost" href="{{ card.data.url }}" rel="noopener">Visit ↗</a></p>
+    {%- endif %}
+  </div>
+</article>

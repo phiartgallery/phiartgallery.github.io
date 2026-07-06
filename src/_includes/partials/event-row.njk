@@ -1,0 +1,22 @@
+{#- Compact event list row. Expects `card` = an event collection item. -#}
+<div class="event-row">
+  <div class="event-row__date" aria-hidden="true">
+    <span class="mon">{{ card.data.start | readableDate("LLL") | upper }}</span>
+    <span class="day">{{ card.data.start | readableDate("d") }}</span>
+    <span class="yr">{{ card.data.start | readableDate("yyyy") }}</span>
+  </div>
+  <div class="event-row__body">
+    <div class="card__meta"><span class="tag tag--{{ card.data.type }}">{{ labels.eventTypes[card.data.type] }}</span>
+      {%- if card.data.free %}<span class="badge-free">Free</span>{% elif card.data.price %}<span class="faint">{{ card.data.price }}</span>{% endif %}
+    </div>
+    <h3 class="event-row__title"><a href="{{ card.url }}">{{ card.data.title }}</a></h3>
+    <p class="event-row__meta">
+      <span>{{ card.data.start | readableDateTime }}</span>
+      {%- if card.data.performers %}<span>{{ card.data.performers | join(" · ") }}</span>{% endif %}
+    </p>
+  </div>
+  <div class="event-row__cta">
+    {%- if card.data.ticketUrl %}<a class="btn btn--sm btn--primary" href="{{ card.data.ticketUrl }}" rel="noopener" data-analytics="ticket">Tickets</a>
+    {%- else %}<a class="btn btn--sm btn--ghost" href="{{ card.url }}">Details</a>{% endif %}
+  </div>
+</div>

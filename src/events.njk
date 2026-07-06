@@ -1,0 +1,39 @@
+---
+layout: base.njk
+navKey: events
+metaTitle: "Live Music & Events in Watertown NY | Phi Gallery"
+description: "Upcoming live music, exhibit openings, workshops, sound healing, and markets at Phi Gallery — 88 Public Square, downtown Watertown, NY."
+breadcrumbs:
+  - label: Home
+    url: /
+  - label: Events
+---
+<section class="section wrap">
+  <header class="stack" style="margin-bottom: var(--sp-5);">
+    <p class="kicker">The heartbeat of Phi Gallery</p>
+    <h1 class="display" style="font-size: var(--fs-3xl);">Events &amp; Live Music</h1>
+    <p class="lede">Live shows, exhibit openings, workshops, sound healing, and the makers' market — on Public Square in downtown Watertown.</p>
+  </header>
+
+  <div class="section-head"><h2>Upcoming</h2></div>
+  {%- if collections.upcomingEvents.length %}
+  <div class="grid grid--3">
+    {%- for event in collections.upcomingEvents %}
+      {%- set card = event %}
+      {% include "partials/event-card.njk" %}
+    {%- endfor %}
+  </div>
+  {%- else %}
+  <p class="empty-state">Nothing on the calendar at the moment — new shows go up all the time. Follow <a href="{{ site.instagramUrl }}">@{{ settings.instagram | replace('@','') }}</a> so you don't miss the next one.</p>
+  {%- endif %}
+
+  {%- if collections.pastEvents.length %}
+  <div class="section-head" style="margin-top: var(--sp-6);"><h2>Past events</h2></div>
+  <div>
+    {%- for event in collections.pastEvents %}
+      {%- set card = event %}
+      {% include "partials/event-row.njk" %}
+    {%- endfor %}
+  </div>
+  {%- endif %}
+</section>

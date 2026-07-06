@@ -1,0 +1,2 @@
+# CMS image uploads land here (referenced as /assets/uploads/...).
+# Sveltia optimizes & converts them to WebP on upload — see src/admin/config.yml.

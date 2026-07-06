@@ -1,0 +1,44 @@
+---
+layout: base.njk
+---
+<article class="section">
+  <div class="wrap">
+    <header class="stack" style="margin-bottom: var(--sp-4);">
+      <span class="tag tag--status-{{ computedStatus }}">{{ labels.exhibitStatus[computedStatus] }}</span>
+      <h1 class="detail__title">{{ title }}</h1>
+      <div class="detail__meta">
+        <span>{{ openDate | readableDate("LLLL d") }} – {{ closeDate | readableDate("LLLL d, yyyy") }}</span>
+        {% if artists %}<span>Featuring <strong>{{ artists | join(", ") }}</strong></span>{% endif %}
+      </div>
+    </header>
+
+    {%- if cover %}
+    <figure style="margin: 0 0 var(--sp-5); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line);">
+      <img src="{{ cover }}" alt="{{ coverAlt or (title + ' — exhibition view') }}" sizes="(min-width: 74rem) 1100px, 94vw" eleventy:widths="800,1200,1600" loading="eager" fetchpriority="high">
+    </figure>
+    {%- endif %}
+
+    <div class="detail">
+      <div class="prose">
+        {% if summary %}<p class="lede">{{ summary }}</p>{% endif %}
+        {{ content | safe }}
+      </div>
+    </div>
+
+    {%- if gallery %}
+    <section style="margin-top: var(--sp-6);">
+      <div class="section-head"><h2>In the show</h2></div>
+      <div class="gallery">
+        {%- for item in gallery %}
+        <figure>
+          <img src="{{ item.image }}" alt="{{ item.alt or (title + ' artwork') }}" sizes="(min-width: 40rem) 220px, 45vw" eleventy:widths="300,600">
+          {% if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
+        </figure>
+        {%- endfor %}
+      </div>
+    </section>
+    {%- endif %}
+
+    <p style="margin-top: var(--sp-5);"><a href="/exhibits/">← Back to all exhibits</a></p>
+  </div>
+</article>

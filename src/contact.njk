@@ -1,0 +1,84 @@
+---
+layout: base.njk
+navKey: contact
+title: Contact
+metaTitle: "Contact Phi Gallery | Watertown, NY"
+description: "Get in touch with Phi Gallery — booking inquiries, vendor applications, press, and general questions. 88 Public Square, Watertown, NY."
+breadcrumbs:
+  - label: Home
+    url: /
+  - label: Contact
+---
+<section class="section wrap-narrow">
+  <header class="stack" style="margin-bottom: var(--sp-5);">
+    <p class="kicker">Say hello</p>
+    <h1 class="display" style="font-size: var(--fs-3xl);">Contact</h1>
+    <p class="lede">Booking a show, applying to vend, pitching an exhibit, or just have a question? We'd love to hear from you.</p>
+  </header>
+
+  <div class="info-grid">
+    <div class="stack">
+      <div class="panel">
+        <p class="eyebrow">General</p>
+        <p><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></p>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Booking &amp; performances</p>
+        <p><a href="mailto:{{ settings.bookingEmail }}">{{ settings.bookingEmail }}</a></p>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Press</p>
+        <p><a href="mailto:{{ settings.pressEmail }}">{{ settings.pressEmail }}</a> · <a href="/press/">Press kit →</a></p>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">Find us</p>
+        <address class="nap" style="margin-top:.4rem;">
+          <strong>{{ settings.name }}</strong>
+          {{ settings.address.street }}<br>
+          {{ settings.address.city }}, {{ settings.address.region }} {{ settings.address.postalCode }}
+        </address>
+        {% if site.instagramUrl %}<p style="margin-top:.6rem;"><a href="{{ site.instagramUrl }}" rel="me noopener" data-analytics="instagram">@{{ settings.instagram | replace('@','') }} on Instagram</a></p>{% endif %}
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <p class="eyebrow">Send a message</p>
+        {%- if site.formspreeId %}
+        <form action="https://formspree.io/f/{{ site.formspreeId }}" method="POST" class="stack" style="margin-top: var(--sp-3);">
+          <div class="field">
+            <label for="c-name">Name</label>
+            <input id="c-name" type="text" name="name" required>
+          </div>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input id="c-email" type="email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="c-topic">About</label>
+            <select id="c-topic" name="topic">
+              <option>General question</option>
+              <option>Booking / performance</option>
+              <option>Vendor / market</option>
+              <option>Exhibit proposal</option>
+              <option>Press</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="c-msg">Message</label>
+            <textarea id="c-msg" name="message" rows="5" required></textarea>
+          </div>
+          <button class="btn btn--primary" type="submit">Send message</button>
+        </form>
+        {%- else %}
+        <p class="muted" style="margin-top:.5rem;">Email is the fastest way to reach us:</p>
+        <p><a class="btn btn--primary" href="mailto:{{ settings.email }}">Email {{ settings.name }}</a></p>
+        <p class="faint" style="font-size: var(--fs-xs); margin-top: var(--sp-3);">
+          Prefer a form here? Add a free <a href="https://formspree.io" rel="noopener">Formspree</a> form ID
+          to enable it — see the README.
+        </p>
+        {%- endif %}
+      </div>
+    </div>
+  </div>
+</section>

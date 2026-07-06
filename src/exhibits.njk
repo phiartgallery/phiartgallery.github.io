@@ -1,0 +1,42 @@
+---
+layout: base.njk
+navKey: exhibits
+metaTitle: "Art Exhibits in Watertown, NY | Phi Gallery"
+description: "Current, upcoming, and past visual-art exhibits at Phi Gallery — a community art space on Public Square in downtown Watertown, NY."
+breadcrumbs:
+  - label: Home
+    url: /
+  - label: Exhibits
+---
+<section class="section wrap">
+  <header class="stack" style="margin-bottom: var(--sp-5);">
+    <p class="kicker">Visual art on Public Square</p>
+    <h1 class="display" style="font-size: var(--fs-3xl);">Exhibits</h1>
+    <p class="lede">Rotating shows from North Country artists — statements, run dates, and installation views.</p>
+  </header>
+
+  {%- if collections.exhibitsSorted.length %}
+    {%- if collections.exhibitsCurrent.length %}
+    <div class="section-head"><h2>Now showing</h2></div>
+    <div class="grid grid--2">
+      {%- for ex in collections.exhibitsCurrent %}{% set card = ex %}{% include "partials/exhibit-card.njk" %}{% endfor %}
+    </div>
+    {%- endif %}
+
+    {%- if collections.exhibitsUpcoming.length %}
+    <div class="section-head" style="margin-top: var(--sp-6);"><h2>Upcoming</h2></div>
+    <div class="grid grid--2">
+      {%- for ex in collections.exhibitsUpcoming %}{% set card = ex %}{% include "partials/exhibit-card.njk" %}{% endfor %}
+    </div>
+    {%- endif %}
+
+    {%- if collections.exhibitsPast.length %}
+    <div class="section-head" style="margin-top: var(--sp-6);"><h2>Past exhibits</h2></div>
+    <div class="grid grid--2">
+      {%- for ex in collections.exhibitsPast %}{% set card = ex %}{% include "partials/exhibit-card.njk" %}{% endfor %}
+    </div>
+    {%- endif %}
+  {%- else %}
+  <p class="empty-state">Our next show is being installed — check back soon.</p>
+  {%- endif %}
+</section>

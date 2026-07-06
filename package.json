@@ -1,0 +1,22 @@
+{
+  "name": "phi-gallery-site",
+  "version": "1.0.0",
+  "description": "Website for Phi Gallery — DIY community art space & live music venue, 88 Public Square, Watertown, NY.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "eleventy --serve --quiet",
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site",
+    "placeholders": "node scripts/gen-placeholders.mjs"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^6.0.0",
+    "luxon": "^3.5.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

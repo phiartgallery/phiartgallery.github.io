@@ -1,0 +1,9 @@
+node_modules/
+_site/
+.cache/
+.eleventy-cache/
+.DS_Store
+*.log
+npm-debug.log*
+.env
+.env.*

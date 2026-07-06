@@ -1,0 +1,13 @@
+{%- set destination = settings.address.street + ", " + settings.address.city + ", " + settings.address.region + " " + settings.address.postalCode -%}
+{%- set directionsUrl = "https://www.google.com/maps/dir/?api=1&destination=" + (destination | urlencode) -%}
+<div class="panel">
+  <p class="eyebrow">Location</p>
+  <address class="nap" style="margin-top: .4rem;">
+    <strong>{{ settings.name }}</strong>
+    {{ settings.address.street }}<br>
+    {{ settings.address.city }}, {{ settings.address.region }} {{ settings.address.postalCode }}
+  </address>
+  <p style="margin-top: var(--sp-3);">
+    <a class="btn btn--sm btn--ghost" href="{{ directionsUrl }}" rel="noopener" data-analytics="directions">Get directions</a>
+  </p>
+</div>

@@ -1,0 +1,46 @@
+{
+  "name": "Phi Gallery",
+  "tagline": "A DIY community art space & live music venue on Public Square.",
+  "founded": "2023",
+  "address": {
+    "street": "88 Public Square",
+    "city": "Watertown",
+    "region": "NY",
+    "regionName": "New York",
+    "postalCode": "13601",
+    "country": "US"
+  },
+  "geo": {
+    "lat": 43.9748,
+    "lng": -75.9108
+  },
+  "phone": "",
+  "email": "hello@phigallery.xyz",
+  "bookingEmail": "booking@phigallery.xyz",
+  "pressEmail": "press@phigallery.xyz",
+  "instagram": "phigallery",
+  "googleBusinessUrl": "",
+  "pressKitUrl": "",
+  "hours": [
+    { "day": "Monday", "closed": true },
+    { "day": "Tuesday", "closed": true },
+    { "day": "Wednesday", "open": "11:00", "close": "18:00" },
+    { "day": "Thursday", "open": "11:00", "close": "18:00" },
+    { "day": "Friday", "open": "11:00", "close": "20:00" },
+    { "day": "Saturday", "open": "11:00", "close": "20:00" },
+    { "day": "Sunday", "closed": true }
+  ],
+  "hoursNote": "Extended hours for openings, shows & workshops — see the events calendar.",
+  "announcement": {
+    "show": false,
+    "text": "Closed for install this week — back Friday for the opening.",
+    "url": "/events/"
+  },
+  "hero": {
+    "image": "/assets/img/hero-gallery.jpg",
+    "alt": "Poster artwork in Phi Gallery's gold-and-ink colors with a large φ glyph.",
+    "kicker": "Watertown, NY · Est. 2023",
+    "heading": "Art, music & community on Public Square",
+    "subheading": "Built by artists, for artists. Exhibits, live shows, workshops, sound healing, and a collective of North Country makers — in the heart of downtown Watertown."
+  }
+}
