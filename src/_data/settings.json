@@ -2,6 +2,7 @@
   "name": "Phi Gallery",
   "tagline": "A DIY community art space & live music venue on Public Square.",
   "founded": "2023",
+  "founder": "Stow Dunham",
   "address": {
     "street": "88 Public Square",
     "city": "Watertown",
@@ -38,6 +39,7 @@
   },
   "hero": {
     "image": "/assets/img/hero-poster.jpg",
+    "video": "/assets/video/hero.mp4",
     "alt": "Paintings on display inside Phi Gallery.",
     "kicker": "Watertown, NY · Est. 2023",
     "heading": "Art, music & community on Public Square",

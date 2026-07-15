@@ -9,6 +9,11 @@ breadcrumbs:
     url: /
   - label: Press
 ---
+{#- Derive rosters from data so the kit never goes stale when the roster changes. -#}
+{%- set coordList %}{% for c in collections.artistsCoordinators %}{{ c.data.title }}{% if not loop.last %}{% if loop.revindex0 == 1 %}, and {% else %}, {% endif %}{% endif %}{% endfor %}{% endset -%}
+{%- set coordDots %}{% for c in collections.artistsCoordinators %}{{ c.data.title }}{% if not loop.last %} · {% endif %}{% endfor %}{% endset -%}
+{%- set residentList %}{% for p in collections.partnersResidents %}{{ p.data.title }}{% if not loop.last %}{% if loop.revindex0 == 1 %}, and {% else %}, {% endif %}{% endif %}{% endfor %}{% endset -%}
+{%- set residentDots %}{% for p in collections.partnersResidents %}{{ p.data.title }}{% if not loop.last %} · {% endif %}{% endfor %}{% endset -%}
 <section class="section wrap-narrow">
   <header class="stack" style="margin-bottom: var(--sp-5);">
     <p class="kicker">For journalists &amp; partners</p>
@@ -28,22 +33,22 @@ breadcrumbs:
     <p>Phi Gallery is a DIY community art space and live music venue on Public Square in downtown Watertown, NY.</p>
 
     <h2>Short boilerplate</h2>
-    <p>Phi Gallery is a community art space in the heart of downtown Watertown, NY. Opened in 2023 by Stow Dunham, the gallery hosts visual art exhibits, live music, literary arts workshops, sound healing, and a rotating collective of local artisanal vendors. Phi Gallery is coordinated by Stow Dunham, Dana Gillan, Mykel "Quince" Myrick, and Destiny Myrick.</p>
+    <p>Phi Gallery is a community art space in the heart of downtown Watertown, NY. Opened in {{ settings.founded }} by {{ settings.founder }}, the gallery hosts visual art exhibits, live music, literary arts workshops, sound healing, and a rotating collective of local artisanal vendors. Phi Gallery is coordinated by {{ coordList | trim }}.</p>
 
     <h2>Full boilerplate</h2>
-    <p>Phi Gallery is a community art space opened in 2023 by Stow Dunham on Public Square in downtown Watertown, NY. Built by artists, for artists, the gallery is home to visual arts and exhibits, musical artists and events, literary arts professionals and workshops, sound healing, and more — a DIY hub where the North Country's creative community gathers, shows work, and plays shows.</p>
-    <p>Phi Gallery also houses a collective of local makers and organizations, including WildRoots Wellness and Revival, Holdown Upstate, Local Legendz by Tunes 92.5, Faeried Treasure Trove, and a handful of incredible local artisanal vendors.</p>
-    <p>The gallery is located at {{ settings.address.street }}, {{ settings.address.city }}, {{ settings.address.region }} {{ settings.address.postalCode }}, and is coordinated by Stow Dunham, Dana Gillan, Mykel "Quince" Myrick, and Destiny Myrick.</p>
+    <p>Phi Gallery is a community art space opened in {{ settings.founded }} by {{ settings.founder }} on Public Square in downtown Watertown, NY. Built by artists, for artists, the gallery is home to visual arts and exhibits, musical artists and events, literary arts professionals and workshops, sound healing, and more — a DIY hub where the North Country's creative community gathers, shows work, and plays shows.</p>
+    <p>Phi Gallery also houses a collective of local makers and organizations, including {{ residentList | trim }}, and a handful of incredible local artisanal vendors.</p>
+    <p>The gallery is located at {{ settings.address.street }}, {{ settings.address.city }}, {{ settings.address.region }} {{ settings.address.postalCode }}, and is coordinated by {{ coordList | trim }}.</p>
 
     <h2>Fact sheet</h2>
     <table>
       <tr><th>Name</th><td>{{ settings.name }}</td></tr>
       <tr><th>What</th><td>Community art gallery · live music venue · workshop space · vendor collective</td></tr>
-      <tr><th>Founded</th><td>{{ settings.founded }}, by Stow Dunham</td></tr>
+      <tr><th>Founded</th><td>{{ settings.founded }}, by {{ settings.founder }}</td></tr>
       <tr><th>Address</th><td>{{ settings.address.street }}, {{ settings.address.city }}, {{ settings.address.region }} {{ settings.address.postalCode }}</td></tr>
-      <tr><th>Coordinators</th><td>Stow Dunham · Dana Gillan · Mykel "Quince" Myrick · Destiny Myrick</td></tr>
+      <tr><th>Coordinators</th><td>{{ coordDots | trim }}</td></tr>
       <tr><th>Programs</th><td>Visual art exhibits · live music &amp; events · literary arts workshops · sound healing · local artisan market</td></tr>
-      <tr><th>Residents</th><td>WildRoots Wellness and Revival · Holdown Upstate · Local Legendz by Tunes 92.5 · Faeried Treasure Trove</td></tr>
+      <tr><th>Residents</th><td>{{ residentDots | trim }}</td></tr>
       <tr><th>Website</th><td>{{ site.url | replace('https://','') }}</td></tr>
       {% if settings.instagram %}<tr><th>Instagram</th><td>@{{ settings.instagram | replace('@','') }}</td></tr>{% endif %}
       <tr><th>Press contact</th><td><a href="mailto:{{ settings.pressEmail }}">{{ settings.pressEmail }}</a></td></tr>
@@ -51,10 +56,9 @@ breadcrumbs:
 
     <h2>The people</h2>
     <ul>
-      <li><strong>Stow Dunham</strong> — Founder &amp; coordinator.</li>
-      <li><strong>Dana Gillan</strong> — Coordinator.</li>
-      <li><strong>Mykel "Quince" Myrick</strong> — Coordinator.</li>
-      <li><strong>Destiny Myrick</strong> — Coordinator.</li>
+      {%- for c in collections.artistsCoordinators %}
+      <li><strong>{{ c.data.title }}</strong> — {% if c.data.title == settings.founder %}Founder &amp; coordinator{% else %}Coordinator{% endif %}.</li>
+      {%- endfor %}
     </ul>
 
     <h2>Usage</h2>
