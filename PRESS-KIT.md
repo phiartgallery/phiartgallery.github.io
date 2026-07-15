@@ -35,7 +35,7 @@ The gallery is located at 88 Public Square, Watertown, NY 13601, and is coordina
 | **Programs** | Visual art exhibits · live music & events · literary arts workshops · sound healing · local artisan market |
 | **Residents & partners** | WildRoots Wellness and Revival · Holdown Upstate · Local Legendz by Tunes 92.5 · Faeried Treasure Trove |
 | **Hours** | [confirm — Google currently shows Wed from 11 AM] |
-| **Website** | [phigallery.xyz] |
+| **Website** | [phigallery.art] |
 | **Instagram** | [@handle] |
 | **Press contact** | [name] · [email] · [phone] |
 

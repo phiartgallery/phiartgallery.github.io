@@ -8,6 +8,11 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
 <section class="hero">
   <div class="hero__media">
     <img src="{{ settings.hero.image }}" alt="{{ settings.hero.alt }}" sizes="100vw" eleventy:widths="800,1200,1800,2400" loading="eager" fetchpriority="high">
+    {# Background video is progressive enhancement: hero-video.js layers this over
+       the poster image and plays it only when motion is allowed. No JS / reduced
+       motion → the still image above is all you get. #}
+    <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true"
+           data-webm="/assets/video/hero.webm" data-mp4="/assets/video/hero.mp4"></video>
   </div>
   <div class="wrap hero__inner">
     <p class="kicker hero__kicker">{{ settings.hero.kicker }}</p>
@@ -20,10 +25,12 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
   </div>
 </section>
 
-{# ---- Word strip — static gig-poster divider, hidden from assistive tech ---- #}
+{# ---- Word strip — scrolling gig-poster marquee, hidden from assistive tech ---- #}
 {%- set tickerItems = ["Art", "Live Music", "Workshops", "Sound Healing", "Makers Market", "Zines", "Community"] -%}
+{# Two identical spans so the CSS can loop translateX(-50%) seamlessly. #}
 <div class="ticker" aria-hidden="true">
   <div class="ticker__track">
+    <span>{% for i in range(0, 3) %}{% for item in tickerItems %}{{ item }}<b>✶</b>{% endfor %}{% endfor %}</span>
     <span>{% for i in range(0, 3) %}{% for item in tickerItems %}{{ item }}<b>✶</b>{% endfor %}{% endfor %}</span>
   </div>
 </div>
@@ -69,6 +76,33 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
 </section>
 {%- endif %}
 
+{# ---- Featured artist (CMS-selected in Site Settings → Featured artist) ---- #}
+{%- if settings.featured and settings.featured.show %}
+  {%- set featured = null %}
+  {%- for a in collections.artistsSorted %}{% if a.fileSlug == settings.featured.artist %}{% set featured = a %}{% endif %}{% endfor %}
+  {%- if featured %}
+<section class="section wrap" id="featured-artist">
+  <div class="section-head"><h2>{{ settings.featured.heading or "Featured artist" }}</h2></div>
+  <div class="panel">
+    <div class="detail {% if featured.data.photo %}detail--media{% endif %}" style="align-items:center;">
+      {%- if featured.data.photo %}
+      <figure style="margin:0; border-radius:var(--radius); overflow:hidden;">
+        <img src="{{ featured.data.photo }}" alt="{{ featured.data.photoAlt or ('Portrait of ' + featured.data.title) }}" sizes="(min-width: 56rem) 40vw, 92vw" eleventy:widths="400,800">
+      </figure>
+      {%- endif %}
+      <div class="stack">
+        <span class="tag tag--role">{{ labels.roles[featured.data.role] }}</span>
+        <h3 class="display" style="font-size: var(--fs-2xl);">{{ featured.data.title }}</h3>
+        {% if settings.featured.blurb %}<p class="lede">{{ settings.featured.blurb }}</p>{% endif %}
+        {% if featured.data.summary %}<p class="muted">{{ featured.data.summary }}</p>{% endif %}
+        <p><a class="btn btn--ghost btn--sm" href="{{ featured.url }}">View profile</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+  {%- endif %}
+{%- endif %}
+
 {# ---- Programs / what happens here ---- #}
 <section class="section wrap">
   <div class="section-head"><h2>Built by artists, for artists</h2></div>
@@ -77,7 +111,7 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
     <div class="panel"><p class="kicker">Live music</p><p class="muted">An intimate DIY venue for touring and local acts. Loud nights, listening rooms, and everything between.</p></div>
     <div class="panel"><p class="kicker">Workshops</p><p class="muted">Literary arts, hands-on making, and skill-shares led by working artists in the community.</p></div>
     <div class="panel"><p class="kicker">Sound healing</p><p class="muted">Restorative sound sessions and wellness gatherings with our resident practitioners.</p></div>
-    <div class="panel"><p class="kicker">Vendor collective</p><p class="muted">A rotating market of local artisans and makers — see who's in the house on <a href="/partners/">Partners</a>.</p></div>
+    <div class="panel"><p class="kicker">Vendor collective</p><p class="muted">A market of local artisans and makers — see who's in the house on <a href="/partners/">Partners</a>.</p></div>
     <div class="panel"><p class="kicker">Community</p><p class="muted">A no-gatekeepers space where downtown Watertown's creative community gathers, shows work, and plays shows.</p></div>
   </div>
 </section>

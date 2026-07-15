@@ -19,16 +19,9 @@ breadcrumbs:
   <div class="info-grid">
     <div class="stack">
       <div class="panel">
-        <p class="eyebrow">General</p>
+        <p class="eyebrow">Email</p>
         <p><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></p>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Booking &amp; performances</p>
-        <p><a href="mailto:{{ settings.bookingEmail }}">{{ settings.bookingEmail }}</a></p>
-      </div>
-      <div class="panel">
-        <p class="eyebrow">Press</p>
-        <p><a href="mailto:{{ settings.pressEmail }}">{{ settings.pressEmail }}</a> · <a href="/press/">Press kit →</a></p>
+        <p class="faint" style="font-size: var(--fs-xs); margin-top:.4rem;">One inbox for booking, vendors, press, and hellos. <a href="/press/">Press kit →</a></p>
       </div>
       <div class="panel">
         <p class="eyebrow">Find us</p>
@@ -73,10 +66,6 @@ breadcrumbs:
         {%- else %}
         <p class="muted" style="margin-top:.5rem;">Email is the fastest way to reach us:</p>
         <p><a class="btn btn--primary" href="mailto:{{ settings.email }}">Email {{ settings.name }}</a></p>
-        <p class="faint" style="font-size: var(--fs-xs); margin-top: var(--sp-3);">
-          Prefer a form here? Add a free <a href="https://formspree.io" rel="noopener">Formspree</a> form ID
-          to enable it — see the README.
-        </p>
         {%- endif %}
       </div>
     </div>

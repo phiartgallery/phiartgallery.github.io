@@ -20,8 +20,8 @@ backend:
     uploadMedia: "content: upload {{path}} (via CMS)"
     deleteMedia: "content: delete {{path}} (via CMS)"
 
-site_url: https://phigallery.xyz
-display_url: https://phigallery.xyz
+site_url: https://phigallery.art
+display_url: https://phigallery.art
 logo_url: /assets/img/logo.svg
 
 # Uploads land here and are referenced by the /assets/uploads/... public path.
@@ -262,6 +262,23 @@ collections:
               - { name: kicker, label: Kicker (small label), widget: string, required: false }
               - { name: heading, label: Heading, widget: string }
               - { name: subheading, label: Subheading, widget: text, required: false }
+          - name: featured
+            label: Featured artist (homepage)
+            widget: object
+            hint: "Spotlights one artist in a section on the homepage."
+            fields:
+              - { name: show, label: Show this section?, widget: boolean, default: true }
+              - { name: heading, label: Section heading, widget: string, default: Featured artist, required: false }
+              - name: artist
+                label: Artist to feature
+                widget: relation
+                collection: artists
+                value_field: "{{slug}}"
+                search_fields: [title]
+                display_fields: [title]
+                required: false
+                hint: "Pick from your Artists & Collective entries."
+              - { name: blurb, label: Feature note (optional), widget: text, required: false, hint: "Optional sentence shown above their bio." }
 
       - name: visit
         label: Visit page text

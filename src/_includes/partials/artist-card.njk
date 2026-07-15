@@ -1,12 +1,17 @@
-{#- Artist card. Expects `card` = an artist collection item. -#}
+{#- Artist card. Expects `card` = an artist collection item.
+   Optional overrides (used to dual-list a coordinator under Exhibiting artists):
+   cardPhoto, cardPhotoAlt, cardRole. -#}
+{%- set _photo = cardPhoto or card.data.photo -%}
+{%- set _photoAlt = cardPhotoAlt or card.data.photoAlt or ('Portrait of ' + card.data.title) -%}
+{%- set _role = cardRole or card.data.role -%}
 <article class="card">
   <div class="card__media" style="aspect-ratio: 1 / 1;">
     <a href="{{ card.url }}" class="card__link" tabindex="-1" aria-hidden="true">
-      {%- if card.data.photo %}<img src="{{ card.data.photo }}" alt="{{ card.data.photoAlt or ('Portrait of ' + card.data.title) }}" sizes="(min-width: 60rem) 240px, 45vw" eleventy:widths="300,600">{% endif %}
+      {%- if _photo %}<img src="{{ _photo }}" alt="{{ _photoAlt }}" sizes="(min-width: 60rem) 240px, 45vw" eleventy:widths="300,600">{% endif %}
     </a>
   </div>
   <div class="card__body">
-    <span class="tag tag--role">{{ labels.roles[card.data.role] }}</span>
+    <span class="tag tag--role">{{ labels.roles[_role] }}</span>
     <h3 class="card__title" style="font-size: var(--fs-base);"><a href="{{ card.url }}">{{ card.data.title }}</a></h3>
   </div>
 </article>

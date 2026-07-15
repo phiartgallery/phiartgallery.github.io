@@ -243,7 +243,10 @@ h1, h2, h3, h4 { line-height: 1.02; font-weight: 400; text-wrap: balance; }
   line-height: 1;
 }
 .brand:hover { color: var(--paper); }
-.brand__mark { width: 2rem; height: 2rem; color: var(--gold); flex: none; }
+.brand picture { display: inline-flex; flex: none; }
+.brand__mark { width: 2.1rem; height: 2.1rem; flex: none; }
+img.brand__mark { border-radius: 5px; object-fit: cover; background: none; } /* header: real logo badge */
+span.brand__mark { color: var(--gold); }                                    /* footer: gold φ glyph */
 .brand__mark svg { width: 100%; height: 100%; }
 
 .nav-toggle {
@@ -475,6 +478,17 @@ h1, h2, h3, h4 { line-height: 1.02; font-weight: 400; text-wrap: balance; }
 }
 .hero__media { position: absolute; inset: 0; z-index: -2; }
 .hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.hero__media video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.hero__media video.is-playing { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .hero__media video { display: none; }
+}
 .hero::after {
   content: "";
   position: absolute;
@@ -520,15 +534,16 @@ h1, h2, h3, h4 { line-height: 1.02; font-weight: 400; text-wrap: balance; }
 }
 
 /* ---- Word strip ---------------------------------------------------------- */
-/* Static repeating-word divider under the hero — gig-poster energy, no motion. */
+/* Scrolling repeating-word divider under the hero — gig-poster marquee. */
 .ticker {
   display: flex;
-  justify-content: center; /* overflowing track clips evenly on both edges */
   overflow: hidden;
   border-block: 1px solid var(--line);
   background: var(--ink-2);
 }
-.ticker__track { display: flex; width: max-content; }
+.ticker__track { display: flex; width: max-content; animation: ticker-scroll 40s linear infinite; }
+@keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ticker__track { animation: none; } }
 .ticker__track > span {
   display: block;
   white-space: nowrap;
@@ -701,10 +716,22 @@ h1, h2, h3, h4 { line-height: 1.02; font-weight: 400; text-wrap: balance; }
   color: var(--paper-faint);
   font-size: var(--fs-xs);
 }
-.social-links { display: flex; gap: 0.8rem; }
-.social-links a { color: var(--paper-dim); }
-.social-links a:hover { color: var(--gold); }
-.social-links svg { width: 1.4rem; height: 1.4rem; }
+.social-links { display: flex; gap: 0.55rem; align-items: center; }
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--paper-dim);
+  background: transparent;
+  transition: color .15s ease, background-color .15s ease, border-color .15s ease, transform .15s ease;
+}
+.social-btn:hover,
+.social-btn:focus-visible { color: var(--ink); background: var(--gold); border-color: var(--gold); transform: translateY(-1px); }
+.social-btn svg { width: 1.2rem; height: 1.2rem; fill: currentColor; }
 
 /* ---- Breadcrumbs -------------------------------------------------------- */
 .breadcrumbs { font-size: var(--fs-xs); color: var(--paper-faint); padding-block: var(--sp-3) 0; }

@@ -13,7 +13,7 @@ Static site for **Phi Gallery**, a DIY community art space + music venue at **88
 | Site generator | **Eleventy (11ty) v3** | Content-first, zero client JS by default, trivial GitHub Actions build |
 | Hosting | **GitHub Pages** (deploy via Actions, not the legacy Jekyll pipeline) | Free, HTTPS on custom domain |
 | CMS | **Sveltia CMS** at `/admin` | Gorgeous modern UI, dark mode, mobile-usable, **resizes + converts uploads to WebP automatically** (critical for a gallery run by non-technical artists), drop-in Decap-compatible config |
-| CMS auth | **sveltia-cms-auth** Cloudflare Worker (free tier) | One-time setup; editors just click "Sign in with GitHub" at phigallery.xyz/admin |
+| CMS auth | **sveltia-cms-auth** Cloudflare Worker (free tier) | One-time setup; editors just click "Sign in with GitHub" at phigallery.art/admin |
 | Images | Sveltia optimizes on upload + `@11ty/eleventy-img` generates responsive `srcset` at build | Fast pages even with big art photos |
 | Analytics | **GA4** (free) via gtag in base layout + **Google Search Console** | |
 | Domain | Custom (~$12/yr — the only recurring cost). Candidates: `phigallery.art`, `phigallery.com`, `phigallerywatertown.com` | Apex + www both pointed at Pages, HTTPS enforced |
@@ -21,7 +21,7 @@ Static site for **Phi Gallery**, a DIY community art space + music venue at **88
 **Repo:** create a `phigallery` GitHub **organization** (or user account) owning `phigallery/phigallery.github.io`-style repo. Each artist-manager gets their **own free GitHub account added as a collaborator** — individual logins, revocable, auditable. Avoid one shared password.
 
 **Editor flow (what the artists experience):**
-1. Go to `phigallery.xyz/admin` → click **Sign in with GitHub**
+1. Go to `phigallery.art/admin` → click **Sign in with GitHub**
 2. Click **Events → New Event**, fill a form, drag in the flyer image
 3. Hit **Publish** → site rebuilds via Actions, live in ~90 seconds
 

@@ -12,7 +12,7 @@ breadcrumbs:
   <header class="stack" style="margin-bottom: var(--sp-5);">
     <p class="kicker">Visual art on Public Square</p>
     <h1 class="display" style="font-size: var(--fs-3xl);">Exhibits</h1>
-    <p class="lede">Rotating shows from North Country artists — statements, run dates, and installation views.</p>
+    <p class="lede">Rotating shows from North Country artists: statements, run dates, and installation views.</p>
   </header>
 
   {%- if collections.exhibitsSorted.length %}
@@ -37,6 +37,9 @@ breadcrumbs:
     </div>
     {%- endif %}
   {%- else %}
-  <p class="empty-state">Our next show is being installed — check back soon.</p>
+  <div class="panel stack">
+    <p>Our next formal show is being installed. Check back soon.</p>
+    <p class="muted">On our walls right now: wildlife portraits by <a href="/artists/carl-forsythe/">Carl Forsythe</a>, this season's <a href="/#featured-artist">featured artist</a>, and paintings by <a href="/artists/stow-dunham/">Stow Dunham</a>.</p>
+  </div>
   {%- endif %}
 </section>

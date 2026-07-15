@@ -58,7 +58,7 @@ Listing pages (`/events/`, `/exhibits/`…) are the `src/<section>.njk` template
 
 ## How editors add content
 
-1. Go to **`phigallery.xyz/admin`** → **Sign in with GitHub**.
+1. Go to **`phigallery.art/admin`** → **Sign in with GitHub**.
 2. Pick a collection (Events, Exhibits, Artists, Residents & Vendors, Press) → **New**.
 3. Fill the form, drag in a flyer/photo (auto-resized & converted to WebP), **Publish**.
 4. GitHub Actions rebuilds and deploys — **live in ~1–2 minutes**.
@@ -71,7 +71,7 @@ same data feeds both the visible pages *and* the SEO schema, so it never drifts.
 
 ## ⚠️ Before going live — configuration checklist
 
-These placeholders **must** be set for production. Grep for `TODO` and `phigallery.xyz`.
+These placeholders **must** be set for production. Grep for `TODO` and `phigallery.art`.
 
 | What | Where | Notes |
 |---|---|---|

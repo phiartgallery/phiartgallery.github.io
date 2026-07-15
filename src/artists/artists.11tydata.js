@@ -10,6 +10,7 @@ export default {
       { label: data.title },
     ],
     shareImage: (data) => data.photo || data.site.defaultShareImage,
+    shareImageAlt: (data) => data.photoAlt || data.title,
     description: (data) => data.summary || (data.title + " — " + data.labels.roles[data.role] + " at " + data.settings.name + "."),
   },
 };

@@ -9,7 +9,7 @@ import settings from "./settings.json" with { type: "json" };
  */
 export default {
   // Placeholder domain — see PLAN §1 (candidates: phigallery.art / .com / phigallerywatertown.com).
-  url: process.env.SITE_URL || "https://phigallery.xyz",
+  url: process.env.SITE_URL || "https://phigallery.art",
 
   lang: "en",
   locale: "en_US",

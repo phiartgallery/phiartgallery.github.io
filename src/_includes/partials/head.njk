@@ -2,6 +2,7 @@
 {%- set metaDesc = (description if description else settings.tagline) | excerpt(180) -%}
 {%- set canonical = page.url | absoluteUrl(site.url) -%}
 {%- set ogImage = (shareImage if shareImage else site.defaultShareImage) | absoluteUrl(site.url) -%}
+{%- set ogImageAlt = shareImageAlt if shareImageAlt else (site.name + " — " + settings.tagline) -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,7 +13,8 @@
 <meta name="author" content="{{ site.name }}">
 <meta name="theme-color" content="#0b0b0d">
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="mask-icon" href="/favicon.svg" color="#e8b84b">
 
 <meta property="og:type" content="{{ ogType if ogType else 'website' }}">
@@ -21,12 +23,19 @@
 <meta property="og:description" content="{{ metaDesc }}">
 <meta property="og:url" content="{{ canonical }}">
 <meta property="og:image" content="{{ ogImage }}">
+<meta property="og:image:alt" content="{{ ogImageAlt }}">
+{%- if not shareImage %}
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{%- endif %}
 <meta property="og:locale" content="{{ site.locale }}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ ogTitle if ogTitle else pageTitle }}">
 <meta name="twitter:description" content="{{ metaDesc }}">
 <meta name="twitter:image" content="{{ ogImage }}">
+<meta name="twitter:image:alt" content="{{ ogImageAlt }}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -47,7 +47,7 @@ export const organization = {
   description: settings.tagline,
   url: site.url,
   image: abs(settings.hero.image),
-  logo: abs("/assets/img/logo.svg"),
+  logo: abs("/assets/img/logo.webp"),
   address: postalAddress,
   geo: {
     "@type": "GeoCoordinates",

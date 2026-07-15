@@ -27,10 +27,13 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets/css": "assets/css" });
   eleventyConfig.addPassthroughCopy({ "src/assets/js": "assets/js" });
   eleventyConfig.addPassthroughCopy({ "src/assets/img": "assets/img" });
+  eleventyConfig.addPassthroughCopy({ "src/assets/video": "assets/video" });
   eleventyConfig.addPassthroughCopy({ "src/assets/uploads": "assets/uploads" });
   eleventyConfig.addPassthroughCopy({ "src/assets/fonts": "assets/fonts" });
   eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
   eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
+  eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
+  eleventyConfig.addPassthroughCopy({ "src/apple-touch-icon.png": "apple-touch-icon.png" });
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
 
   // The CMS admin is a static SPA — copy it verbatim, don't run it through the
@@ -173,7 +176,9 @@ export default function (eleventyConfig) {
     sortArtists(api.getFilteredByTag("artist").filter((i) => i.data.role === "coordinator"))
   );
   eleventyConfig.addCollection("artistsOthers", (api) =>
-    sortArtists(api.getFilteredByTag("artist").filter((i) => i.data.role !== "coordinator"))
+    sortArtists(
+      api.getFilteredByTag("artist").filter((i) => i.data.role !== "coordinator" || i.data.alsoExhibiting)
+    )
   );
 
   const sortPartners = (list) =>

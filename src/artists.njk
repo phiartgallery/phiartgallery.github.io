@@ -19,14 +19,14 @@ breadcrumbs:
   {%- if collections.artistsCoordinators.length %}
   <div class="section-head"><h2>Coordinators</h2></div>
   <div class="grid grid--artists">
-    {%- for a in collections.artistsCoordinators %}{% set card = a %}{% include "partials/artist-card.njk" %}{% endfor %}
+    {%- for a in collections.artistsCoordinators %}{% set card = a %}{% set cardPhoto = "" %}{% set cardPhotoAlt = "" %}{% set cardRole = "" %}{% include "partials/artist-card.njk" %}{% endfor %}
   </div>
   {%- endif %}
 
   {%- if collections.artistsOthers.length %}
-  <div class="section-head" style="margin-top: var(--sp-6);"><h2>Exhibiting artists &amp; musicians</h2></div>
+  <div class="section-head" style="margin-top: var(--sp-6);"><h2>Exhibiting artists</h2></div>
   <div class="grid grid--artists">
-    {%- for a in collections.artistsOthers %}{% set card = a %}{% include "partials/artist-card.njk" %}{% endfor %}
+    {%- for a in collections.artistsOthers %}{% set card = a %}{% set cardPhoto = a.data.exhibitPhoto %}{% set cardPhotoAlt = a.data.exhibitPhotoAlt %}{% set cardRole = ("exhibitor" if a.data.alsoExhibiting else "") %}{% include "partials/artist-card.njk" %}{% endfor %}
   </div>
   {%- endif %}
 

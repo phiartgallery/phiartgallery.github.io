@@ -15,10 +15,10 @@
     "lng": -75.9108
   },
   "phone": "",
-  "email": "hello@phigallery.xyz",
-  "bookingEmail": "booking@phigallery.xyz",
-  "pressEmail": "press@phigallery.xyz",
-  "instagram": "phigallery",
+  "email": "contact@phigallery.art",
+  "bookingEmail": "contact@phigallery.art",
+  "pressEmail": "contact@phigallery.art",
+  "instagram": "phi.gallery.art",
   "googleBusinessUrl": "",
   "pressKitUrl": "",
   "hours": [
@@ -42,5 +42,11 @@
     "kicker": "Watertown, NY · Est. 2023",
     "heading": "Art, music & community on Public Square",
     "subheading": "Built by artists, for artists. Exhibits, live shows, workshops, sound healing, and a collective of North Country makers — in the heart of downtown Watertown."
+  },
+  "featured": {
+    "show": true,
+    "heading": "Featured artist",
+    "artist": "carl-forsythe",
+    "blurb": ""
   }
 }

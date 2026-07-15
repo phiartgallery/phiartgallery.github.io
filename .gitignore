@@ -7,3 +7,4 @@ _site/
 npm-debug.log*
 .env
 .env.*
+scratch-dir/
