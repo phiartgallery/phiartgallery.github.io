@@ -307,3 +307,17 @@ collections:
             default:
               - { label: Home, url: / }
               - { label: About }
+
+      - name: presskit
+        label: Press kit assets
+        file: "src/_data/presskit.json"
+        description: Downloadable logos & photos shown on the /press page.
+        fields:
+          - name: assets
+            label: Downloadable assets
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: file, label: File / image, widget: image }
+              - { name: label, label: Label, widget: string }
+              - { name: credit, label: Credit / caption, widget: string, required: false }

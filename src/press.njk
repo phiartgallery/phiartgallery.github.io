@@ -22,11 +22,29 @@ breadcrumbs:
     <div class="cluster">
       {%- if settings.pressKitUrl %}
       <a class="btn btn--primary" href="{{ settings.pressKitUrl }}" rel="noopener" data-analytics="press-download">Download press kit (ZIP)</a>
+      {%- elif presskit.assets.length %}
+      <a class="btn btn--primary" href="#assets" data-analytics="press-download">Download assets ↓</a>
       {%- else %}
       <a class="btn btn--primary" href="mailto:{{ settings.pressEmail }}?subject=Phi%20Gallery%20press%20assets" data-analytics="press-download">Request hi-res assets</a>
       {%- endif %}
     </div>
   </header>
+
+  {%- if presskit.assets.length %}
+  <div class="section-head" id="assets"><h2>Brand &amp; photo assets</h2></div>
+  <p class="muted" style="margin-bottom:var(--sp-4);">Cleared for editorial use covering Phi Gallery. Please credit photographers where noted.</p>
+  <div class="grid grid--3">
+    {%- for a in presskit.assets %}
+    <figure class="panel" style="margin:0;">
+      <div style="background:#fff; border-radius:var(--radius); padding:1rem; display:flex; align-items:center; justify-content:center; aspect-ratio:4/3; overflow:hidden;">
+        <img src="{{ a.file }}" alt="{{ a.label }}" style="max-width:100%; max-height:100%; width:auto; height:auto; background:none;" eleventy:widths="300,600" sizes="320px">
+      </div>
+      <figcaption style="font-size:var(--fs-sm); margin-top:.6rem;">{{ a.label }}{% if a.credit %} <span class="faint">— {{ a.credit }}</span>{% endif %}</figcaption>
+      <p style="margin-top:.5rem;"><a class="btn btn--sm btn--ghost" href="{{ a.file }}" download>Download ↓</a></p>
+    </figure>
+    {%- endfor %}
+  </div>
+  {%- endif %}
 
   <div class="prose">
     <h2>One-liner</h2>
@@ -62,7 +80,7 @@ breadcrumbs:
     </ul>
 
     <h2>Usage</h2>
-    <p>Photos and logos in this kit are approved for editorial use covering Phi Gallery. Please credit photographers as captioned. For interviews, high-res originals, or anything else, contact <a href="mailto:{{ settings.pressEmail }}">{{ settings.pressEmail }}</a>.</p>
+    <p>The logos and photos above are cleared for editorial use covering Phi Gallery. Please credit photographers where captioned. For interviews or anything you can't find here, reach <a href="mailto:{{ settings.pressEmail }}">{{ settings.pressEmail }}</a>.</p>
   </div>
 
   {%- if collections.pressSorted.length %}
