@@ -9,11 +9,11 @@
   // Respect the visitor's motion preference — keep the still image.
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  // iOS autoplay: the `muted` HTML attribute alone is frequently ignored, so set it
-  // in JS too; webkit-playsinline covers older iOS. Without these, iOS blocks the
-  // autoplay and the poster stays put.
+  // iOS autoplay: the `muted` HTML attribute alone is frequently ignored, so set the
+  // flags in JS too. playsinline/webkit-playsinline stop iOS from going fullscreen.
   v.muted = true;
   v.defaultMuted = true;
+  v.autoplay = true;
   v.setAttribute("muted", "");
   v.setAttribute("playsinline", "");
   v.setAttribute("webkit-playsinline", "");
@@ -25,9 +25,14 @@
     s.type = type;
     v.appendChild(s);
   }
-  // WebM (smaller) first so Android/desktop prefer it; iOS can't decode VP9/WebM and
-  // falls through to the H.264 MP4.
-  addSource(v.dataset.webm, "video/webm");
+
+  // Only hand WebM to browsers that *definitely* decode VP9 (Chrome/Firefox report
+  // "probably"). iOS Safari reports "maybe"/"" and, if given the WebM source, latches
+  // onto it and stalls instead of falling through — so gate it and let Safari take
+  // the universally-supported H.264 MP4.
+  var webmOk =
+    !!v.canPlayType && v.canPlayType('video/webm; codecs="vp9"') === "probably";
+  if (webmOk) addSource(v.dataset.webm, "video/webm");
   addSource(v.dataset.mp4, "video/mp4");
 
   v.addEventListener("playing", function () {
