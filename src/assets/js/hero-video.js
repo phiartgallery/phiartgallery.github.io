@@ -9,6 +9,15 @@
   // Respect the visitor's motion preference — keep the still image.
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+  // iOS autoplay: the `muted` HTML attribute alone is frequently ignored, so set it
+  // in JS too; webkit-playsinline covers older iOS. Without these, iOS blocks the
+  // autoplay and the poster stays put.
+  v.muted = true;
+  v.defaultMuted = true;
+  v.setAttribute("muted", "");
+  v.setAttribute("playsinline", "");
+  v.setAttribute("webkit-playsinline", "");
+
   function addSource(src, type) {
     if (!src) return;
     var s = document.createElement("source");
@@ -16,7 +25,8 @@
     s.type = type;
     v.appendChild(s);
   }
-  // WebM (smaller) first so supporting browsers prefer it; MP4 is the fallback.
+  // WebM (smaller) first so Android/desktop prefer it; iOS can't decode VP9/WebM and
+  // falls through to the H.264 MP4.
   addSource(v.dataset.webm, "video/webm");
   addSource(v.dataset.mp4, "video/mp4");
 
@@ -26,5 +36,5 @@
 
   v.load();
   var p = v.play();
-  if (p && p.catch) p.catch(function () { /* autoplay blocked — poster stays */ });
+  if (p && p.catch) p.catch(function () { /* autoplay blocked (e.g. Low Power Mode) — poster stays */ });
 })();
