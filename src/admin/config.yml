@@ -12,7 +12,7 @@ backend:
   name: github
   repo: phiartgallery/phiartgallery.github.io
   branch: prod
-  base_url: https://YOUR-WORKER.workers.dev # TODO: sveltia-cms-auth Worker URL
+  base_url: https://sveltia-cms-auth.phiartgallery.workers.dev
   commit_messages:
     create: "content: create {{collection}} “{{slug}}” (via CMS)"
     update: "content: update {{collection}} “{{slug}}” (via CMS)"
@@ -22,7 +22,7 @@ backend:
 
 site_url: https://phigallery.art
 display_url: https://phigallery.art
-logo_url: /assets/img/logo.svg
+logo_url: /assets/img/logo.webp
 
 # Uploads land here and are referenced by the /assets/uploads/... public path.
 media_folder: "src/assets/uploads"
