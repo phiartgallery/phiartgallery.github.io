@@ -162,9 +162,15 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("exhibitsPast", (api) => exhibitsByStatus(api, "past"));
 
   const artistRank = { coordinator: 0, exhibitor: 1, musician: 2, other: 3 };
+  // Roles are a multi-select list; tolerate a legacy singular `role`.
+  const artistRoles = (i) => {
+    const r = i.data.roles || (i.data.role ? [i.data.role] : []);
+    return Array.isArray(r) ? r : [r];
+  };
+  const primaryRank = (i) => Math.min(9, ...artistRoles(i).map((r) => artistRank[r] ?? 9));
   const sortArtists = (list) =>
     list.sort((a, b) => {
-      const r = (artistRank[a.data.role] ?? 9) - (artistRank[b.data.role] ?? 9);
+      const r = primaryRank(a) - primaryRank(b);
       if (r !== 0) return r;
       return (a.data.order ?? 99) - (b.data.order ?? 99);
     });
@@ -172,12 +178,12 @@ export default function (eleventyConfig) {
     sortArtists(api.getFilteredByTag("artist"))
   );
   eleventyConfig.addCollection("artistsCoordinators", (api) =>
-    sortArtists(api.getFilteredByTag("artist").filter((i) => i.data.role === "coordinator"))
+    sortArtists(api.getFilteredByTag("artist").filter((i) => artistRoles(i).includes("coordinator")))
   );
+  // Anyone with a non-coordinator role (exhibitor / musician / other) — so a
+  // coordinator who also exhibits (e.g. Stow) shows in both sections.
   eleventyConfig.addCollection("artistsOthers", (api) =>
-    sortArtists(
-      api.getFilteredByTag("artist").filter((i) => i.data.role !== "coordinator" || i.data.alsoExhibiting)
-    )
+    sortArtists(api.getFilteredByTag("artist").filter((i) => artistRoles(i).some((r) => r !== "coordinator")))
   );
 
   const sortPartners = (list) =>

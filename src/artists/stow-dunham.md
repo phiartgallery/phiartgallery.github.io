@@ -1,13 +1,12 @@
 ---
 title: Stow Dunham
-role: coordinator
+roles: [coordinator, exhibitor]
 order: 1
 photo: /assets/img/artist-stow.webp
 photoAlt: "Stow Dunham, founder of Phi Gallery, holding an empty gilded frame."
 summary: "Founder & coordinator. Opened Phi Gallery in 2023 to give Watertown's artists a room of their own."
 website: ""
 instagram: ""
-alsoExhibiting: true
 exhibitPhoto: /assets/img/stow-painting.webp
 exhibitPhotoAlt: "Stow Dunham painting a canvas in the gallery."
 work:

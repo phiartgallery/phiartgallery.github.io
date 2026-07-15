@@ -11,6 +11,6 @@ export default {
     ],
     shareImage: (data) => data.photo || data.site.defaultShareImage,
     shareImageAlt: (data) => data.photoAlt || data.title,
-    description: (data) => data.summary || (data.title + " — " + data.labels.roles[data.role] + " at " + data.settings.name + "."),
+    description: (data) => data.summary || (data.title + " — " + (data.labels.roles[(data.roles || [])[0]] || "Artist") + " at " + data.settings.name + "."),
   },
 };

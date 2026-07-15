@@ -1,6 +1,6 @@
 ---
 title: Destiny Myrick
-role: coordinator
+roles: [coordinator]
 order: 4
 photo: /assets/img/artist-destiny.webp
 photoAlt: "Portrait of Destiny Myrick, coordinator at Phi Gallery."

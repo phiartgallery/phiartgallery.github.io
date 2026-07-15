@@ -80,7 +80,7 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
 {# ---- Featured artist (CMS-selected in Site Settings → Featured artist) ---- #}
 {%- if settings.featured and settings.featured.show %}
   {%- set featured = null %}
-  {%- for a in collections.artistsSorted %}{% if a.fileSlug == settings.featured.artist %}{% set featured = a %}{% endif %}{% endfor %}
+  {%- for a in collections.artistsSorted %}{% if a.data.featured and not featured %}{% set featured = a %}{% endif %}{% endfor %}
   {%- if featured %}
 <section class="section wrap" id="featured-artist">
   <div class="section-head"><h2>{{ settings.featured.heading or "Featured artist" }}</h2></div>
@@ -92,9 +92,8 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
       </figure>
       {%- endif %}
       <div class="stack">
-        <span class="tag tag--role">{{ labels.roles[featured.data.role] }}</span>
+        <span class="tag tag--role">{{ labels.roles[featured.data.roles[0]] }}</span>
         <h3 class="display" style="font-size: var(--fs-2xl);">{{ featured.data.title }}</h3>
-        {% if settings.featured.blurb %}<p class="lede">{{ settings.featured.blurb }}</p>{% endif %}
         {% if featured.data.summary %}<p class="muted">{{ featured.data.summary }}</p>{% endif %}
         <p><a class="btn btn--ghost btn--sm" href="{{ featured.url }}">View profile</a></p>
       </div>

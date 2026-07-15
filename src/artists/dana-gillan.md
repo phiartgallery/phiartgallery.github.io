@@ -1,6 +1,6 @@
 ---
 title: Dana Gillan
-role: coordinator
+roles: [coordinator]
 order: 2
 photo: /assets/img/artist-dana.webp
 photoAlt: "Dana Gillan holding her poetry collection, Intimate Nuances."

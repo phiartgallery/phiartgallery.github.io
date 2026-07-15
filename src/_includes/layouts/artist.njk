@@ -13,7 +13,7 @@ layout: base.njk
       {%- endif %}
 
       <div class="stack">
-        <span class="tag tag--role">{{ labels.roles[role] }}</span>
+        <div class="cluster">{%- for r in roles %}<span class="tag tag--role">{{ labels.roles[r] }}</span>{% endfor %}</div>
         <h1 class="detail__title">{{ title }}</h1>
         {% if summary %}<p class="lede">{{ summary }}</p>{% endif %}
 

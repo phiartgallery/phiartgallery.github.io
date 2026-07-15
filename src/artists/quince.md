@@ -1,6 +1,6 @@
 ---
 title: Mykel “Quince” Myrick
-role: coordinator
+roles: [coordinator]
 order: 3
 photo: /assets/img/artist-quince.webp
 photoAlt: "Portrait of Mykel “Quince” Myrick, coordinator at Phi Gallery."

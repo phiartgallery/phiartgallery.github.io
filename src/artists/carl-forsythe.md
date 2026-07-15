@@ -1,6 +1,7 @@
 ---
 title: Carl Forsythe
-role: exhibitor
+roles: [exhibitor]
+featured: true
 order: 9
 photo: /assets/img/artist-carl-forsythe.webp
 photoAlt: "Carl Forsythe at Phi Gallery, in front of his graphite wolf portrait."

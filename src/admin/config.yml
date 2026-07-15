@@ -127,18 +127,24 @@ collections:
     summary: "{{title}} — {{fields.role}}"
     fields:
       - { name: title, label: Name, widget: string }
-      - name: role
-        label: Role
+      - name: roles
+        label: Roles
         widget: select
-        default: exhibitor
+        multiple: true
+        min: 1
+        default: [exhibitor]
+        hint: "Pick one or more — e.g. a coordinator who also exhibits shows in both sections."
         options:
           - { label: Coordinator, value: coordinator }
           - { label: Exhibiting Artist, value: exhibitor }
           - { label: Musician, value: musician }
           - { label: Other, value: other }
+      - { name: featured, label: Featured on homepage?, widget: boolean, default: false, required: false, hint: "Tick ONE artist to spotlight in the homepage Featured-artist section." }
       - { name: order, label: Sort order, widget: number, required: false, value_type: int, default: 50, hint: "Lower shows first within a role." }
       - { name: photo, label: Photo, widget: image, required: false }
       - { name: photoAlt, label: Photo alt text, widget: string, required: false }
+      - { name: exhibitPhoto, label: Exhibiting-section photo, widget: image, required: false, hint: "Optional — shown on the Exhibiting-artists card if this person also exhibits (e.g. a shot of their work). Falls back to Photo." }
+      - { name: exhibitPhotoAlt, label: Exhibiting photo alt text, widget: string, required: false }
       - { name: summary, label: Short bio / tagline, widget: text, required: false }
       - { name: website, label: Website, widget: string, required: false }
       - { name: instagram, label: Instagram handle, widget: string, required: false, hint: "Without the @." }
@@ -265,20 +271,10 @@ collections:
           - name: featured
             label: Featured artist (homepage)
             widget: object
-            hint: "Spotlights one artist in a section on the homepage."
+            hint: "Toggle the homepage spotlight here; choose WHO by ticking “Featured on homepage?” on an artist in Artists & Collective."
             fields:
               - { name: show, label: Show this section?, widget: boolean, default: true }
               - { name: heading, label: Section heading, widget: string, default: Featured artist, required: false }
-              - name: artist
-                label: Artist to feature
-                widget: relation
-                collection: artists
-                value_field: "{{slug}}"
-                search_fields: [title]
-                display_fields: [title]
-                required: false
-                hint: "Pick from your Artists & Collective entries."
-              - { name: blurb, label: Feature note (optional), widget: text, required: false, hint: "Optional sentence shown above their bio." }
 
       - name: visit
         label: Visit page text

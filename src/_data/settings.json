@@ -45,8 +45,6 @@
   },
   "featured": {
     "show": true,
-    "heading": "Featured artist",
-    "artist": "carl-forsythe",
-    "blurb": ""
+    "heading": "Featured artist"
   }
 }
