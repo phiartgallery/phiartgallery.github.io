@@ -17,7 +17,7 @@ Opened in 2023 by **Stow Dunham**, Phi Gallery is home to visual arts and exhibi
 
 Phi Gallery also houses a collective of local makers and organizations — including [WildRoots Wellness and Revival, Holdown Upstate, Local Legendz by Tunes 92.5, Faeried Treasure Trove](/partners/), and a rotating cast of incredible local artisanal vendors.
 
-The gallery is coordinated by **Stow Dunham**, **Dana Gillan**, and **The Myricks** — Mykel "Quince" Myrick and Destiny Myrick — with a growing circle of contributing artists.
+The gallery is coordinated by **Stow Dunham**, **Dana Gillan**, **Mykel "Quince" Myrick**, and **Destiny Myrick**, with a growing circle of contributing artists.
 
 ## What happens here
 

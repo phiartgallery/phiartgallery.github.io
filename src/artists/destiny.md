@@ -4,7 +4,7 @@ roles: [coordinator]
 order: 4
 photo: /assets/img/artist-destiny.webp
 photoAlt: "Portrait of Destiny Myrick, coordinator at Phi Gallery."
-summary: "Coordinator. Music programming and community partnerships alongside Quince."
+summary: "Coordinator. Helps run Phi Gallery's music programming and community partnerships."
 instagram: ""
 ---
 
