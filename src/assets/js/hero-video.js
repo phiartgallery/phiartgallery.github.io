@@ -18,22 +18,13 @@
   v.setAttribute("playsinline", "");
   v.setAttribute("webkit-playsinline", "");
 
-  function addSource(src, type) {
-    if (!src) return;
+  // Single H.264 MP4 — small and plays everywhere, including iOS Safari.
+  if (v.dataset.mp4) {
     var s = document.createElement("source");
-    s.src = src;
-    s.type = type;
+    s.src = v.dataset.mp4;
+    s.type = "video/mp4";
     v.appendChild(s);
   }
-
-  // Only hand WebM to browsers that *definitely* decode VP9 (Chrome/Firefox report
-  // "probably"). iOS Safari reports "maybe"/"" and, if given the WebM source, latches
-  // onto it and stalls instead of falling through — so gate it and let Safari take
-  // the universally-supported H.264 MP4.
-  var webmOk =
-    !!v.canPlayType && v.canPlayType('video/webm; codecs="vp9"') === "probably";
-  if (webmOk) addSource(v.dataset.webm, "video/webm");
-  addSource(v.dataset.mp4, "video/mp4");
 
   v.addEventListener("playing", function () {
     v.classList.add("is-playing");
