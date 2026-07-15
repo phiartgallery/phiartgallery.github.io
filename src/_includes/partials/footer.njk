@@ -39,9 +39,9 @@
 
   <div class="wrap footer-bottom">
     <p>© {{ page.date | year }} {{ settings.name }} · Built by artists, for artists in the North Country.</p>
-    {%- if site.instagramUrl %}
+    {%- if settings.socials.length %}
     <div class="social-links">
-      {{ socialIcon("instagram", site.instagramUrl, settings.name + " on Instagram") }}
+      {%- for s in settings.socials %}{{ socialIcon(s.platform, s.url, settings.name + " on " + (s.platform | capitalize)) }}{% endfor %}
     </div>
     {%- endif %}
   </div>

@@ -20,6 +20,7 @@ export default {
     ],
     // Share image defaults to the event's flyer.
     shareImage: (data) => data.flyer || data.site.defaultShareImage,
+    shareImageAlt: (data) => data.flyerAlt || data.title,
     description: (data) => data.summary || data.settings.tagline,
 
     // Event JSON-LD → eligible for Google's event surfaces.

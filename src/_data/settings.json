@@ -20,6 +20,9 @@
   "bookingEmail": "contact@phigallery.art",
   "pressEmail": "contact@phigallery.art",
   "instagram": "phi.gallery.art",
+  "socials": [
+    { "platform": "instagram", "url": "https://www.instagram.com/phi.gallery.art/" }
+  ],
   "googleBusinessUrl": "",
   "pressKitUrl": "",
   "hours": [
@@ -48,5 +51,23 @@
   "featured": {
     "show": true,
     "heading": "Featured artist"
+  },
+  "homepage": {
+    "ticker": ["Art", "Live Music", "Workshops", "Sound Healing", "Makers Market", "Zines", "Community"],
+    "programsHeading": "Built by artists, for artists",
+    "programs": [
+      { "title": "Exhibits", "text": "Rotating visual-art shows from North Country artists — openings, artist talks, and installs on Public Square." },
+      { "title": "Live music", "text": "An intimate DIY venue for touring and local acts. Loud nights, listening rooms, and everything between." },
+      { "title": "Workshops", "text": "Literary arts, hands-on making, and skill-shares led by working artists in the community." },
+      { "title": "Sound healing", "text": "Restorative sound sessions and wellness gatherings with our resident practitioners." },
+      { "title": "Vendor collective", "text": "A market of local artisans and makers — meet them over on the Partners page." },
+      { "title": "Community", "text": "A no-gatekeepers space where downtown Watertown's creative community gathers, shows work, and plays shows." }
+    ],
+    "spaceHeading": "The space",
+    "spaceGallery": [
+      { "image": "/assets/img/gallery-space-1.webp", "alt": "Wildlife drawings and paintings on display inside Phi Gallery." }
+    ],
+    "newsletterHeading": "Don't miss a show",
+    "newsletterText": "Get the occasional email when new shows and exhibits go up."
   }
 }

@@ -240,6 +240,18 @@ collections:
           - { name: bookingEmail, label: Booking email, widget: string, required: false }
           - { name: pressEmail, label: Press email, widget: string, required: false }
           - { name: instagram, label: Instagram handle, widget: string, required: false, hint: "Without the @." }
+          - name: socials
+            label: Social links (footer icons)
+            widget: list
+            required: false
+            summary: "{{fields.platform}}"
+            hint: "Shown as icons in the footer. Add a full URL for each."
+            fields:
+              - name: platform
+                label: Platform
+                widget: select
+                options: [instagram, facebook, youtube, tiktok, bandcamp, x]
+              - { name: url, label: Full URL, widget: string }
           - { name: googleBusinessUrl, label: Google Business Profile URL, widget: string, required: false }
           - { name: pressKitUrl, label: Press kit ZIP URL, widget: string, required: false }
           - name: hours
@@ -278,6 +290,30 @@ collections:
             fields:
               - { name: show, label: Show this section?, widget: boolean, default: true }
               - { name: heading, label: Section heading, widget: string, default: Featured artist, required: false }
+          - name: homepage
+            label: Homepage sections
+            widget: object
+            fields:
+              - { name: ticker, label: Scrolling word strip (one word per item), widget: list }
+              - { name: programsHeading, label: Programs section heading, widget: string }
+              - name: programs
+                label: Program panels
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: text }
+              - { name: spaceHeading, label: "\"The space\" heading", widget: string, required: false }
+              - name: spaceGallery
+                label: "\"The space\" — photos"
+                widget: list
+                required: false
+                summary: "{{fields.alt}}"
+                fields:
+                  - { name: image, label: Photo, widget: image }
+                  - { name: alt, label: Alt text, widget: string }
+              - { name: newsletterHeading, label: Newsletter heading, widget: string }
+              - { name: newsletterText, label: Newsletter intro, widget: text }
 
       - name: visit
         label: Visit page text

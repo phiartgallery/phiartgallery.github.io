@@ -27,7 +27,7 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
 </section>
 
 {# ---- Word strip — scrolling gig-poster marquee, hidden from assistive tech ---- #}
-{%- set tickerItems = ["Art", "Live Music", "Workshops", "Sound Healing", "Makers Market", "Zines", "Community"] -%}
+{%- set tickerItems = settings.homepage.ticker -%}
 {# Two identical spans so the CSS can loop translateX(-50%) seamlessly. #}
 <div class="ticker" aria-hidden="true">
   <div class="ticker__track">
@@ -103,25 +103,36 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
   {%- endif %}
 {%- endif %}
 
-{# ---- Programs / what happens here ---- #}
+{# ---- Programs / what happens here (editable in Site Settings → Homepage) ---- #}
+{%- if settings.homepage.programs.length %}
 <section class="section wrap">
-  <div class="section-head"><h2>Built by artists, for artists</h2></div>
+  <div class="section-head"><h2>{{ settings.homepage.programsHeading }}</h2></div>
   <div class="grid grid--3">
-    <div class="panel"><p class="kicker">Exhibits</p><p class="muted">Rotating visual-art shows from North Country artists — openings, artist talks, and installs on Public Square.</p></div>
-    <div class="panel"><p class="kicker">Live music</p><p class="muted">An intimate DIY venue for touring and local acts. Loud nights, listening rooms, and everything between.</p></div>
-    <div class="panel"><p class="kicker">Workshops</p><p class="muted">Literary arts, hands-on making, and skill-shares led by working artists in the community.</p></div>
-    <div class="panel"><p class="kicker">Sound healing</p><p class="muted">Restorative sound sessions and wellness gatherings with our resident practitioners.</p></div>
-    <div class="panel"><p class="kicker">Vendor collective</p><p class="muted">A market of local artisans and makers — see who's in the house on <a href="/partners/">Partners</a>.</p></div>
-    <div class="panel"><p class="kicker">Community</p><p class="muted">A no-gatekeepers space where downtown Watertown's creative community gathers, shows work, and plays shows.</p></div>
+    {%- for p in settings.homepage.programs %}
+    <div class="panel"><p class="kicker">{{ p.title }}</p><p class="muted">{{ p.text }}</p></div>
+    {%- endfor %}
   </div>
 </section>
+{%- endif %}
+
+{# ---- The space — CMS-managed photo gallery ---- #}
+{%- if settings.homepage.spaceGallery.length %}
+<section class="section wrap">
+  <div class="section-head"><h2>{{ settings.homepage.spaceHeading or "The space" }}</h2></div>
+  <div class="gallery">
+    {%- for g in settings.homepage.spaceGallery %}
+    <figure><img src="{{ g.image }}" alt="{{ g.alt }}" sizes="(min-width: 40rem) 300px, 45vw" eleventy:widths="400,800" loading="lazy"></figure>
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}
 
 {# ---- Newsletter / follow ---- #}
 <section class="section--tight wrap">
   <div class="panel text-center stack">
-    <h2 class="display" style="font-size: var(--fs-xl);">Don't miss a show</h2>
+    <h2 class="display" style="font-size: var(--fs-xl);">{{ settings.homepage.newsletterHeading }}</h2>
     {%- if site.buttondownUser %}
-    <p class="muted">Get the occasional email when new shows and exhibits go up.</p>
+    <p class="muted">{{ settings.homepage.newsletterText }}</p>
     <form action="https://buttondown.email/api/emails/embed-subscribe/{{ site.buttondownUser }}" method="post" target="popupwindow" class="cluster" style="justify-content:center;">
       <label class="visually-hidden" for="bd-email">Email address</label>
       <input id="bd-email" type="email" name="email" placeholder="you@email.com" required style="min-width:16rem; background:var(--ink-3); border:1px solid var(--line); color:var(--paper); border-radius:var(--radius); padding:.7rem .85rem;">

@@ -16,6 +16,7 @@ export default {
       data.cover ||
       (data.gallery && data.gallery[0] && data.gallery[0].image) ||
       data.site.defaultShareImage,
+    shareImageAlt: (data) => data.coverAlt || data.title,
     description: (data) => data.summary || data.settings.tagline,
   },
 };
