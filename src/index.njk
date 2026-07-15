@@ -11,8 +11,9 @@ description: "Phi Gallery is a DIY community art space and live music venue at 8
     {# Background video is progressive enhancement: hero-video.js layers this over
        the poster image and plays it only when motion is allowed. No JS / reduced
        motion → the still image above is all you get. #}
-    <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true"
-           data-mp4="/assets/video/hero.mp4"></video>
+    <video class="hero__video" muted loop autoplay playsinline webkit-playsinline preload="auto" aria-hidden="true">
+      <source src="/assets/video/hero.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="wrap hero__inner">
     <p class="kicker hero__kicker">{{ settings.hero.kicker }}</p>
