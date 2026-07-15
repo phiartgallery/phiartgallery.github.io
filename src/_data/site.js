@@ -26,6 +26,11 @@ export default {
   // Buttondown username → powers the newsletter signup on the homepage.
   buttondownUser: process.env.BUTTONDOWN_USER || "",
 
+  // Cloudflare Worker endpoint that relays the contact form to Resend. Set the
+  // CONTACT_ENDPOINT repo Variable to the deployed Worker URL to enable the form;
+  // empty falls back to a mailto link. See contact-worker/README.md.
+  contactEndpoint: process.env.CONTACT_ENDPOINT || "",
+
   // Convenience re-exports so templates can read `site.name` etc.
   name: settings.name,
   tagline: settings.tagline,

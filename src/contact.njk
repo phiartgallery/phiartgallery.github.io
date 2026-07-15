@@ -37,8 +37,8 @@ breadcrumbs:
     <div>
       <div class="panel">
         <p class="eyebrow">Send a message</p>
-        {%- if site.formspreeId %}
-        <form action="https://formspree.io/f/{{ site.formspreeId }}" method="POST" class="stack" style="margin-top: var(--sp-3);">
+        {%- if site.contactEndpoint %}
+        <form id="contact-form" action="{{ site.contactEndpoint }}" method="POST" class="stack" style="margin-top: var(--sp-3);">
           <div class="field">
             <label for="c-name">Name</label>
             <input id="c-name" type="text" name="name" required>
@@ -61,7 +61,13 @@ breadcrumbs:
             <label for="c-msg">Message</label>
             <textarea id="c-msg" name="message" rows="5" required></textarea>
           </div>
+          {# Honeypot: hidden from people, catches bots. #}
+          <div class="hp" aria-hidden="true">
+            <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label>
+          </div>
           <button class="btn btn--primary" type="submit">Send message</button>
+          <p id="contact-status" class="form-status" role="status" aria-live="polite"></p>
+          <noscript><p class="faint" style="font-size:var(--fs-xs); margin-top:.5rem;">Trouble with the form? Email <a href="mailto:{{ settings.email }}">{{ settings.email }}</a>.</p></noscript>
         </form>
         {%- else %}
         <p class="muted" style="margin-top:.5rem;">Email is the fastest way to reach us:</p>

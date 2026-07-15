@@ -2,8 +2,8 @@ name: Build & deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
-  # Sveltia commits from the CMS land on `main` and trigger this automatically.
+    branches: [prod]
+  # Sveltia commits from the CMS land on `prod` and trigger this automatically.
   workflow_dispatch:
 
 permissions:
@@ -33,11 +33,13 @@ jobs:
         run: npm run build
         env:
           # Production URL — must match src/CNAME and the domain in DNS.
-          SITE_URL: https://phigallery.xyz
+          SITE_URL: https://phigallery.art
           # Add these as repository Secrets/Variables to enable them:
           GA4_ID: ${{ vars.GA4_ID }}
           FORMSPREE_ID: ${{ vars.FORMSPREE_ID }}
           BUTTONDOWN_USER: ${{ vars.BUTTONDOWN_USER }}
+          # Deployed Cloudflare Worker URL (see contact-worker/README.md).
+          CONTACT_ENDPOINT: ${{ vars.CONTACT_ENDPOINT }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

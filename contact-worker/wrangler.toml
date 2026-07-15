@@ -1,0 +1,10 @@
+name = "phi-contact"
+main = "index.js"
+compatibility_date = "2024-11-01"
+
+# Non-secret config. RESEND_API_KEY is set separately as a secret:
+#   npx wrangler secret put RESEND_API_KEY
+[vars]
+TO_EMAIL = "contact@phigallery.art"
+FROM_EMAIL = "Phi Gallery <contact@phigallery.art>"
+ALLOWED_ORIGIN = "https://phigallery.art"

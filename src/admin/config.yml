@@ -11,7 +11,7 @@
 backend:
   name: github
   repo: phigallery/phigallery # TODO: owner/repo
-  branch: main
+  branch: prod
   base_url: https://YOUR-WORKER.workers.dev # TODO: sveltia-cms-auth Worker URL
   commit_messages:
     create: "content: create {{collection}} “{{slug}}” (via CMS)"

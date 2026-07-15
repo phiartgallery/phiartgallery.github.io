@@ -667,6 +667,11 @@ span.brand__mark { color: var(--gold); }                                    /* f
   padding: 0.7rem 0.85rem;
 }
 .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--gold); box-shadow: var(--ring); outline: none; }
+/* Honeypot — visually removed, still submitted; bots fill it, humans don't. */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-status { font-size: var(--fs-sm); margin-top: var(--sp-2); }
+.form-status.is-ok { color: var(--gold); }
+.form-status.is-error { color: var(--ember); }
 
 /* ---- Footer ------------------------------------------------------------- */
 .site-footer {
