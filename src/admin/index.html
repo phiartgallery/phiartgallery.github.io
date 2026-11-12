@@ -8,7 +8,12 @@
   </head>
   <body>
     <!-- Sveltia CMS — a drop-in, Decap-compatible editor with a modern UI,
-         dark mode, and automatic image optimization (see config.yml). -->
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+         dark mode, and automatic image optimization (see config.yml).
+
+         PINNED VERSION — upgrade on purpose, not by surprise. Sveltia ships
+         several releases a week and newer ones validate config.yml more
+         strictly; unpinned, a release once broke sign-in overnight. To upgrade,
+         see "Upgrading the CMS" in README.md. Pinned 2026-11-11. -->
+    <script src="https://unpkg.com/@sveltia/cms@0.262.4/dist/sveltia-cms.js"></script>
   </body>
 </html>

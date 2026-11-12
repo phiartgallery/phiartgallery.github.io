@@ -108,6 +108,28 @@ Pages, and submit `sitemap.xml` to Google Search Console + Bing.
 - **Dates** are interpreted in **America/New_York**; the CMS stores local
   wall-clock times (no UTC surprises) — see `lib/site-date.js`.
 
+## Upgrading the CMS
+
+Sveltia CMS is **pinned to an exact version** in `src/admin/index.html`
+(currently `@sveltia/cms@0.262.4`). It used to load "latest", and in Nov 2026 a
+new release started rejecting a stale field reference in `config.yml` and
+blocked sign-in. Pinning means the CMS only changes when you change it.
+
+To upgrade (every few months, or when you want a fix/feature):
+
+1. `npm view @sveltia/cms version` → the newest version
+   ([release notes](https://github.com/sveltia/sveltia-cms/releases)).
+   Prefer one that's been out a week or two — releases come several times a week.
+2. Bump the version in the `<script src>` in `src/admin/index.html`.
+3. Test locally before pushing: `cd src && python3 -m http.server 8080`, open
+   `http://localhost:8080/admin/`. You should see **Sign In with GitHub**; a
+   config problem shows a red "error in the CMS configuration" message instead.
+4. If it errors, fix `config.yml` (the message names the collection and field),
+   or stay on the old version.
+
+When renaming or removing a field in `config.yml`, also search the file for
+`fields.<oldname>` — `summary:` templates reference fields by name.
+
 ## Handoff (Phase 5)
 
 - [ ] 5-min screen recording: add an event, add an exhibit, change hours.

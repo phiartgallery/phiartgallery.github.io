@@ -125,7 +125,7 @@ collections:
     extension: md
     format: yaml-frontmatter
     sortable_fields: [order, title]
-    summary: "{{title}} — {{fields.role}}"
+    summary: "{{title}} — {{fields.roles}}"
     fields:
       - { name: title, label: Name, widget: string }
       - name: roles
